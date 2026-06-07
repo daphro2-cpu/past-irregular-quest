@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Past Irregular Quest - Nibble Monster</title>
+<style>
+:root{--ink:#24304a;--line:#17213a;--sky:#8fd7ff;--grass:#75c66b;--hill:#4cac5a;--cream:#fff6d6;--red:#f04f46;--purple:#9b68d8;--green:#44b55a;--blue:#49a6ff;--orange:#ff9a3c;--yellow:#ffe06b;--white:#fffdf4;--shadow:rgba(0,0,0,.25)}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:"Trebuchet MS","Century Gothic",Arial,sans-serif;color:var(--ink);background:radial-gradient(circle at 12% 12%,#fff 0 18px,transparent 19px),radial-gradient(circle at 17% 13%,#fff 0 15px,transparent 16px),radial-gradient(circle at 78% 9%,#fff 0 22px,transparent 23px),linear-gradient(var(--sky) 0 62%,var(--grass) 62% 72%,var(--hill) 72%);overflow-x:hidden}
+.page{max-width:1120px;margin:0 auto;padding:22px 16px 34px}.header{background:var(--cream);border:6px solid var(--line);box-shadow:8px 8px 0 var(--shadow);padding:18px 20px;position:relative;overflow:hidden}.header:after{content:"";position:absolute;right:26px;top:18px;width:72px;height:72px;background:var(--yellow);border:6px solid var(--line);border-radius:50%;box-shadow:6px 6px 0 rgba(0,0,0,.15)}
+h1{margin:0;font-size:clamp(2rem,5vw,4rem);text-transform:uppercase}.subtitle{font-weight:900;font-size:1.08rem;margin-top:6px;color:rgba(36,48,74,.78)}.layout{display:grid;grid-template-columns:1fr 310px;gap:18px;margin-top:18px}@media(max-width:900px){.layout{grid-template-columns:1fr}}
+.panel,.side{background:var(--white);border:6px solid var(--line);box-shadow:8px 8px 0 var(--shadow)}.topbar{padding:12px 14px;background:#ffcf58;border-bottom:6px solid var(--line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-weight:900}.badges{display:flex;gap:8px;flex-wrap:wrap}.badge{background:#fff;border:4px solid var(--line);padding:6px 9px;box-shadow:3px 3px 0 rgba(0,0,0,.15)}
+.gamewrap{padding:16px}.prompt{background:#fff3c7;border:5px solid var(--line);padding:12px;margin-bottom:12px;text-align:center;box-shadow:5px 5px 0 rgba(0,0,0,.14)}.prompt .small{font-size:.95rem;font-weight:900;color:rgba(36,48,74,.72)}.prompt .verb{font-size:clamp(2rem,5vw,3.2rem);font-weight:1000;text-transform:uppercase;color:#e24a3b}
+#board{width:100%;max-width:760px;aspect-ratio:1/.72;margin:0 auto;display:block;border:6px solid var(--line);background:#8ee66f;box-shadow:6px 6px 0 rgba(0,0,0,.2);image-rendering:pixelated}.controls{margin-top:12px;display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+button{font-family:inherit;font-weight:1000;border:5px solid var(--line);background:#55a6ff;color:#fff;padding:10px 14px;box-shadow:4px 4px 0 rgba(0,0,0,.2);cursor:pointer;font-size:1rem}button:hover{filter:brightness(1.08)}button.orange{background:var(--orange)}button.green{background:var(--green)}button.pink{background:#ff7ba8}
+#feedback{font-weight:1000;min-height:28px;font-size:1.08rem}.good{color:#238c3a}.bad{color:#d33a30}.warn{color:#b36800}.side{padding:16px}.side h2{margin:0 0 10px;text-transform:uppercase}.nibbles-card{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:center;background:#e9f8ff;border:5px solid var(--line);padding:10px;margin-bottom:14px}
+.face{width:66px;height:58px;background:#58c84f;border:5px solid var(--line);border-radius:18px;position:relative;box-shadow:4px 4px 0 rgba(0,0,0,.16)}.face:before,.face:after{content:"";position:absolute;top:15px;width:8px;height:8px;background:var(--line)}.face:before{left:16px}.face:after{right:16px}.mouth{position:absolute;left:19px;bottom:12px;width:20px;height:7px;background:var(--line);border-radius:0 0 12px 12px}.speech{font-weight:900;line-height:1.3}
+.legend{display:grid;gap:8px;margin-top:10px}.legend div{border:4px solid var(--line);background:#fff6d6;padding:8px;font-weight:900}.keys{display:grid;grid-template-columns:repeat(3,45px);gap:5px;justify-content:center;margin-top:12px}.key{height:38px;border:4px solid var(--line);background:#fff;text-align:center;font-weight:1000;line-height:30px;box-shadow:3px 3px 0 rgba(0,0,0,.14)}.blank{visibility:hidden}
+.end{display:none;position:fixed;inset:0;background:rgba(20,30,55,.72);z-index:10;align-items:center;justify-content:center;padding:20px}.endbox{background:#fff6d6;border:7px solid var(--line);box-shadow:10px 10px 0 rgba(0,0,0,.28);padding:22px;max-width:560px;text-align:center}.endbox h2{font-size:2.2rem;margin:0 0 8px;text-transform:uppercase}.progress{height:26px;border:5px solid var(--line);background:#fff;margin:12px 0;overflow:hidden}.progressfill{height:100%;background:linear-gradient(90deg,#44b55a,#ffe06b,#ff7ba8);width:20%}
+</style>
+</head>
+<body>
+<div class="page"><section class="header"><h1>Past Irregular Quest</h1><div class="subtitle">World 1: Nibble Monster — Feed Nibbles the Simple Past!</div></section>
+<main class="layout"><section class="panel"><div class="topbar"><div class="badges"><div class="badge">❤️ <span id="lives">3</span></div><div class="badge">⭐ <span id="score">0</span></div><div class="badge">⏱️ <span id="time">90</span>s</div><div class="badge">🍓 <span id="eaten">0</span>/15</div></div><div class="badge">Round <span id="round">1</span></div></div><div class="gamewrap"><div class="prompt"><div class="small">Find the SIMPLE PAST of:</div><div class="verb" id="baseVerb">eat</div></div><canvas id="board" width="760" height="548"></canvas><div class="controls"><div id="feedback" class="warn">Press Start. Use arrow keys or W A S D.</div><div><button class="green" onclick="startGame()">Start / Restart</button><button class="orange" onclick="pauseGame()">Pause</button></div></div></div></section>
+<aside class="side"><div class="nibbles-card"><div class="face"><div class="mouth"></div></div><div class="speech" id="speech">I'm hungry! Feed me the past tense!</div></div><h2 id="evoTitle">Baby Nibbles</h2><div class="legend"><div id="evoText">Eat strawberries to grow into Super Nibbles!</div></div><h2>How to Play</h2><div class="legend"><div>🍓 Eat the correct past tense word.</div><div>🍄 Avoid fake verbs and wrong forms.</div><div>⭐ Stars give bonus points.</div><div>🕒 Clocks give extra time.</div></div><div class="keys"><div class="key blank"></div><div class="key">↑</div><div class="key blank"></div><div class="key">←</div><div class="key">↓</div><div class="key">→</div></div><p style="font-weight:900;line-height:1.4">Goal: eat 15 correct strawberries before time runs out. Nibbles grows and evolves as you play!</p></aside></main></div>
+<div class="end" id="end"><div class="endbox"><h2 id="endTitle">Nibbles Grew!</h2><p id="endText">Great work!</p><div class="progress"><div class="progressfill" id="progressfill"></div></div><button class="green" onclick="closeEnd();startGame()">Play Again</button><button class="pink" onclick="closeEnd()">Back</button></div></div>
+<script>
+const sets=[
+[["go","went"],["eat","ate"],["see","saw"],["run","ran"],["come","came"],["do","did"],["make","made"],["take","took"],["give","gave"],["have","had"]],
+[["bring","brought"],["buy","bought"],["catch","caught"],["teach","taught"],["think","thought"],["find","found"],["tell","told"],["sell","sold"],["send","sent"],["keep","kept"]],
+[["choose","chose"],["drive","drove"],["forget","forgot"],["speak","spoke"],["ride","rode"],["write","wrote"],["throw","threw"],["know","knew"],["swim","swam"],["drink","drank"]]
+];
+const fake={go:["goed","goes","gone"],eat:["eated","eats","eaten"],see:["seed","sees","seen"],run:["runned","runs","run"],come:["comed","comes","coming"],do:["doed","does","done"],make:["maked","makes","making"],take:["taked","takes","taken"],give:["gived","gives","given"],have:["haved","has","having"],bring:["bringed","brung","brings"],buy:["buyed","buys","boughten"],catch:["catched","catches","caughted"],teach:["teached","teaches","teaching"],think:["thinked","thinks","thoughted"],find:["finded","finds","founden"],tell:["telled","tells","telling"],sell:["selled","sells","solded"],send:["sended","sends","sented"],keep:["keeped","keeps","kepted"],choose:["choosed","chooses","chosen"],drive:["drived","drives","driven"],forget:["forgetted","forgets","forgotten"],speak:["speaked","speaks","spoken"],ride:["rided","rides","ridden"],write:["writed","writes","written"],throw:["throwed","throws","thrown"],know:["knowed","knows","known"],swim:["swimmed","swims","swum"],drink:["drinked","drinks","drunk"]};
+const c=document.getElementById("board"),ctx=c.getContext("2d");let cell=28,cols=Math.floor(c.width/cell),rows=Math.floor(c.height/cell),snake,dir,nextDir,foods,base,correct,score,lives,time,eaten,round,paused,timer,loop,started=false;
+function pick(a){return a[Math.floor(Math.random()*a.length)]}function shuf(a){return a.sort(()=>Math.random()-.5)}function rc(){return{x:Math.floor(Math.random()*cols),y:Math.floor(Math.random()*rows)}}function far(){let p,ok=false;while(!ok){p=rc();ok=!snake.some(s=>s.x===p.x&&s.y===p.y)&&!(p.x<4&&p.y<4)}return p}
+function newQ(){let p=pick(sets[round-1]);base=p[0];correct=p[1];document.getElementById("baseVerb").textContent=base;spawn()}
+function spawn(){foods=[];let wrongs=shuf([...(fake[base]||[base+"ed",base+"s","gone"])]).slice(0,round);foods.push({kind:"correct",word:correct,...far()});wrongs.forEach(w=>foods.push({kind:"wrong",word:w,...far()}));if(Math.random()<.35)foods.push({kind:"star",word:"STAR",...far()});if(Math.random()<.25)foods.push({kind:"clock",word:"+10s",...far()})}
+function startGame(){clearInterval(timer);clearInterval(loop);score=0;lives=3;time=90;eaten=0;round=1;paused=false;started=true;snake=[{x:5,y:8},{x:4,y:8},{x:3,y:8}];dir={x:1,y:0};nextDir=dir;newQ();ui();updateEvolution();draw();timer=setInterval(()=>{if(!paused){time--;if(time<=0)end(false);ui()}},1000);loop=setInterval(tick,150);fb("Nibbles is ready! Eat the correct past tense.","warn");say("I'm hungry! Feed me the past tense!")}
+function pauseGame(){if(!started)return;paused=!paused;fb(paused?"Paused.":"Go Nibbles go!","warn")}
+function ui(){document.getElementById("score").textContent=score;document.getElementById("lives").textContent=lives;document.getElementById("time").textContent=time;document.getElementById("eaten").textContent=eaten;document.getElementById("round").textContent=round}
+function tick(){if(paused||!started)return;dir=nextDir;let h={x:snake[0].x+dir.x,y:snake[0].y+dir.y};if(h.x<0)h.x=cols-1;if(h.x>=cols)h.x=0;if(h.y<0)h.y=rows-1;if(h.y>=rows)h.y=0;if(snake.some(s=>s.x===h.x&&s.y===h.y)){hurt("Ouch! Nibbles bumped into himself!");return}snake.unshift(h);let ate=false;for(let i=0;i<foods.length;i++){let f=foods[i];if(f.x===h.x&&f.y===h.y){ate=true;if(f.kind==="correct"){score+=10;eaten++;beep("good");updateEvolution();fb("Yum! "+base+" → "+correct,"good");say(pick(["Yum!","Delicious!","More verbs!"]));if(eaten===5)round=2;if(eaten===10)round=3;if(eaten>=15){end(true);return}newQ()}else if(f.kind==="wrong"){hurt("Bleh! "+f.word+" is not the simple past of "+base+".");foods.splice(i,1)}else if(f.kind==="star"){score+=25;beep("bonus");fb("Bonus star! +25 points!","good");foods.splice(i,1)}else{time+=10;beep("bonus");fb("Clock bonus! +10 seconds!","good");foods.splice(i,1)}break}}if(!ate)snake.pop();ui();draw()}
+function hurt(m){lives--;beep("bad");fb(m,"bad");say(pick(["Bleh!","Yuck!","Try again!"]));if(lives<=0){end(false);return}snake=[{x:5,y:8},{x:4,y:8},{x:3,y:8}];dir={x:1,y:0};nextDir=dir}
+function draw(){ctx.clearRect(0,0,c.width,c.height);for(let y=0;y<rows;y++){for(let x=0;x<cols;x++){ctx.fillStyle=(x+y)%2===0?"#89df67":"#7bd45e";ctx.fillRect(x*cell,y*cell,cell,cell)}}for(let i=0;i<45;i++){let x=(i*97)%c.width,y=(i*53)%c.height;ctx.fillStyle=["#ff7ba8","#ffe06b","#fff","#49a6ff","#ff9a3c"][i%5];ctx.fillRect(x,y,8,8);ctx.fillStyle="#2b9348";ctx.fillRect(x+3,y+8,3,5)}foods.forEach(drawFood);snake.forEach(drawSnake)}
+function drawSnake(s,i){let x=s.x*cell,y=s.y*cell;ctx.fillStyle=i===0?"#35a84a":"#51c767";ctx.fillRect(x+2,y+2,cell-4,cell-4);ctx.strokeStyle="#1b2540";ctx.lineWidth=3;ctx.strokeRect(x+2,y+2,cell-4,cell-4);if(i===0){ctx.fillStyle="#1b2540";ctx.fillRect(x+8,y+9,4,4);ctx.fillRect(x+cell-12,y+9,4,4);ctx.fillRect(x+10,y+cell-10,cell-20,4)}}
+function drawFood(f){let x=f.x*cell,y=f.y*cell;if(f.kind==="correct"){ctx.fillStyle="#f04f46";ctx.beginPath();ctx.arc(x+cell/2,y+cell/2,cell/2-3,0,Math.PI*2);ctx.fill();ctx.fillStyle="#2b9348";ctx.fillRect(x+cell/2-3,y+3,6,8)}else if(f.kind==="wrong"){ctx.fillStyle="#9b68d8";ctx.beginPath();ctx.arc(x+cell/2,y+cell/2,cell/2-3,Math.PI,0);ctx.fill();ctx.fillStyle="#fff";ctx.fillRect(x+8,y+12,5,5);ctx.fillRect(x+17,y+8,5,5)}else if(f.kind==="star"){ctx.fillStyle="#ffe06b";ctx.fillRect(x+8,y+4,12,20);ctx.fillRect(x+4,y+8,20,12)}else{ctx.fillStyle="#49a6ff";ctx.fillRect(x+4,y+4,cell-8,cell-8);ctx.fillStyle="#fff";ctx.fillText("+10",x+3,y+18)}ctx.fillStyle="#1b2540";ctx.font="bold 18px Trebuchet MS";ctx.textAlign="center";ctx.fillText(f.word,x+cell/2,y+cell+18)}
+function fb(m,cl){let e=document.getElementById("feedback");e.textContent=m;e.className=cl}function say(m){document.getElementById("speech").textContent=m}
+function end(win){clearInterval(timer);clearInterval(loop);started=false;document.getElementById("end").style.display="flex";document.getElementById("endTitle").textContent=win?"Nibbles Grew Bigger!":"Try Again!";document.getElementById("endText").innerHTML=`Score: <b>${score}</b><br>Correct strawberries eaten: <b>${eaten}</b>/15`;document.getElementById("progressfill").style.width=Math.min(100,eaten/15*100)+"%"}
+
+function beep(type){
+  try{
+    const audio=new (window.AudioContext||window.webkitAudioContext)();
+    const osc=audio.createOscillator();
+    const gain=audio.createGain();
+    osc.connect(gain);gain.connect(audio.destination);
+    if(type==="good"){osc.frequency.value=740;gain.gain.value=.08}
+    else if(type==="bad"){osc.frequency.value=180;gain.gain.value=.09}
+    else {osc.frequency.value=980;gain.gain.value=.07}
+    osc.type="square";
+    osc.start();
+    osc.stop(audio.currentTime+.12);
+  }catch(e){}
+}
+function updateEvolution(){
+  const title=document.getElementById("evoTitle");
+  const text=document.getElementById("evoText");
+  if(!title||!text)return;
+  if(eaten<5){title.textContent="Baby Nibbles";text.textContent="Eat 5 strawberries to become Nibbles!";}
+  else if(eaten<10){title.textContent="Nibbles";text.textContent="Eat 10 strawberries to become Super Nibbles!";}
+  else if(eaten<15){title.textContent="Super Nibbles";text.textContent="Almost there! Eat 15 strawberries to become Mega Nibbles!";}
+  else{title.textContent="Mega Nibbles";text.textContent="You did it! Nibbles is ready for the next world!";}
+}
+
+function closeEnd(){document.getElementById("end").style.display="none"}
+document.addEventListener("keydown",e=>{let k=e.key.toLowerCase();if((k==="arrowup"||k==="w")&&dir.y!==1)nextDir={x:0,y:-1};if((k==="arrowdown"||k==="s")&&dir.y!==-1)nextDir={x:0,y:1};if((k==="arrowleft"||k==="a")&&dir.x!==1)nextDir={x:-1,y:0};if((k==="arrowright"||k==="d")&&dir.x!==-1)nextDir={x:1,y:0}});
+draw();
+</script>
+</body>
+</html>
