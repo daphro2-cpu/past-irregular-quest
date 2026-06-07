@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Past Irregular Quest - Dragon Boss Mountain</title>
+<style>
+:root{
+  --ink:#24304a;--line:#17213a;--sky:#6f89d8;--night:#2d376b;--lava:#ff6b3d;
+  --cream:#fff6d6;--yellow:#ffe05d;--orange:#ff9a3c;--pink:#ff7ba8;--red:#f04f46;
+  --purple:#9b68d8;--blue:#4ea6ff;--green:#44b55a;--white:#fffdf4;--shadow:rgba(0,0,0,.28)
+}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:"Trebuchet MS","Century Gothic",Arial,sans-serif;color:var(--ink);background:radial-gradient(circle at 15% 14%,#fff 0 3px,transparent 4px),radial-gradient(circle at 55% 8%,#fff 0 3px,transparent 4px),radial-gradient(circle at 82% 18%,#fff 0 4px,transparent 5px),linear-gradient(var(--sky) 0 36%,var(--night) 36% 100%);overflow-x:hidden}
+.page{max-width:1160px;margin:0 auto;padding:22px 16px 34px}
+.header{background:var(--cream);border:6px solid var(--line);box-shadow:8px 8px 0 var(--shadow);padding:18px 20px;position:relative;overflow:hidden}
+.header:after{content:"";position:absolute;right:26px;top:18px;width:72px;height:72px;background:var(--yellow);border:6px solid var(--line);border-radius:50%;box-shadow:6px 6px 0 rgba(0,0,0,.15)}
+h1{margin:0;font-size:clamp(2rem,5vw,4rem);text-transform:uppercase}.subtitle{font-weight:900;font-size:1.08rem;margin-top:6px;color:rgba(36,48,74,.78)}
+.layout{display:grid;grid-template-columns:1fr 310px;gap:18px;margin-top:18px}@media(max-width:930px){.layout{grid-template-columns:1fr}}
+.panel,.side{background:var(--white);border:6px solid var(--line);box-shadow:8px 8px 0 var(--shadow)}
+.topbar{padding:12px 14px;background:#ffcf58;border-bottom:6px solid var(--line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-weight:900}
+.badges{display:flex;gap:8px;flex-wrap:wrap}.badge{background:#fff;border:4px solid var(--line);padding:6px 9px;box-shadow:3px 3px 0 rgba(0,0,0,.15)}
+.gamewrap{padding:16px}
+.battle{position:relative;width:100%;max-width:780px;min-height:520px;margin:0 auto;border:6px solid var(--line);background:linear-gradient(#5e76c9 0 45%,#51417b 45% 78%,#2d1e44 78% 100%);box-shadow:6px 6px 0 rgba(0,0,0,.2);overflow:hidden;padding:14px}
+.mountain{position:absolute;bottom:78px;border-left:180px solid transparent;border-right:180px solid transparent;border-bottom:260px solid #5b527a;left:50%;transform:translateX(-50%);filter:drop-shadow(6px 6px 0 rgba(0,0,0,.22))}
+.mountain:after{content:"";position:absolute;left:-65px;top:78px;border-left:65px solid transparent;border-right:65px solid transparent;border-bottom:96px solid #fff6d6}
+.lava{position:absolute;left:0;right:0;bottom:0;height:78px;background:repeating-linear-gradient(45deg,#ff6b3d 0 20px,#ff9a3c 20px 40px);border-top:6px solid var(--line)}
+.platform{position:absolute;left:50px;right:50px;bottom:76px;height:18px;background:#8b5a2b;border:5px solid var(--line)}
+.dragon{position:absolute;right:72px;top:120px;width:190px;height:150px;z-index:5}
+.dragonBody{position:absolute;right:0;bottom:0;width:142px;height:92px;background:#9b68d8;border:6px solid var(--line);border-radius:38px 38px 28px 28px}
+.dragonHead{position:absolute;left:6px;top:12px;width:86px;height:70px;background:#9b68d8;border:6px solid var(--line);border-radius:28px}
+.dragonHead:before{content:"";position:absolute;left:10px;top:-26px;border-left:14px solid transparent;border-right:14px solid transparent;border-bottom:32px solid #ffe05d}
+.dragonEye{position:absolute;top:27px;width:8px;height:8px;background:var(--line)}.de1{left:24px}.de2{left:52px}
+.dragonMouth{position:absolute;left:28px;bottom:13px;width:34px;height:8px;background:var(--line);border-radius:0 0 12px 12px}.wing{position:absolute;right:38px;top:-2px;width:72px;height:62px;background:#ff7ba8;border:6px solid var(--line);clip-path:polygon(0 100%,35% 0,100% 100%)}.tail{position:absolute;right:-35px;bottom:34px;width:70px;height:24px;background:#9b68d8;border:6px solid var(--line);border-radius:30px;transform:rotate(22deg)}
+.dragon.hit{animation:dragonHit .28s}@keyframes dragonHit{0%{transform:translateX(0)}25%{transform:translateX(8px)}50%{transform:translateX(-8px)}75%{transform:translateX(5px)}100%{transform:translateX(0)}}
+.hero{position:absolute;left:92px;bottom:99px;width:68px;height:82px;z-index:6}.heroHead{position:absolute;left:18px;top:0;width:34px;height:32px;background:#ffcf9b;border:5px solid var(--line);border-radius:10px}.heroBody{position:absolute;left:10px;top:32px;width:50px;height:42px;background:#4ea6ff;border:5px solid var(--line);border-radius:12px}.heroHead:before,.heroHead:after{content:"";position:absolute;top:12px;width:5px;height:5px;background:var(--line)}.heroHead:before{left:8px}.heroHead:after{right:8px}.sword{position:absolute;right:-12px;top:22px;width:12px;height:60px;background:#dfe8ff;border:4px solid var(--line);transform:rotate(45deg)}
+.promptBox{position:absolute;left:22px;top:16px;right:22px;background:#fff6d6;border:6px solid var(--line);box-shadow:5px 5px 0 rgba(0,0,0,.18);padding:10px;text-align:center;z-index:15}
+.promptBox .small{font-weight:900;color:rgba(36,48,74,.72)}.promptBox .verb{font-size:clamp(1.35rem,4vw,2.25rem);font-weight:1000;color:#e24a3b;text-transform:uppercase}
+.hpWrap{position:absolute;right:26px;top:92px;width:255px;background:white;border:5px solid var(--line);z-index:20;padding:5px}.hpLabel{font-weight:1000;margin-bottom:4px}.hpBar{height:22px;background:#ddd;border:4px solid var(--line);overflow:hidden}.hpFill{height:100%;width:100%;background:linear-gradient(90deg,#44b55a,#ffe05d,#f04f46);transition:.25s}
+.fireball{position:absolute;left:42%;top:46%;z-index:12;background:#ff6b3d;border:5px solid var(--line);border-radius:50%;padding:18px 20px;font-weight:1000;font-size:24px;box-shadow:5px 5px 0 rgba(0,0,0,.2);text-align:center;color:#fff}
+.answerZone{margin-top:14px;border:6px solid var(--line);background:#fff6d6;padding:12px;box-shadow:6px 6px 0 rgba(0,0,0,.18)}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.slot{min-height:66px;background:#fff;border:5px dashed var(--line);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:1000;box-shadow:4px 4px 0 rgba(0,0,0,.14);position:relative}
+.slot:before{position:absolute;top:-28px;left:50%;transform:translateX(-50%);background:var(--blue);color:white;border:4px solid var(--line);padding:2px 8px;font-size:15px}
+#slot0:before{content:"V1"}#slot1:before{content:"V2"}#slot2:before{content:"V3"}
+.tileGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:560px){.tileGrid{grid-template-columns:repeat(2,1fr)}.slots{grid-template-columns:1fr}}
+.tile{min-height:58px;border:5px solid var(--line);background:#ffe05d;color:var(--line);font-size:21px;font-weight:1000;box-shadow:4px 4px 0 rgba(0,0,0,.16);cursor:pointer}.tile:hover{background:#ffed8a;transform:translateY(-2px)}.tile:disabled{opacity:.28;cursor:default;transform:none}
+.actionRow{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+.controls{margin-top:12px;display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+button{font-family:inherit;font-weight:1000;border:5px solid var(--line);background:#55a6ff;color:#fff;padding:10px 14px;box-shadow:4px 4px 0 rgba(0,0,0,.2);cursor:pointer;font-size:1rem}button:hover{filter:brightness(1.08)}button.orange{background:var(--orange)}button.green{background:var(--green)}button.pink{background:#ff7ba8}button.purple{background:var(--purple)}
+#feedback{font-weight:1000;min-height:28px;font-size:1.08rem}.good{color:#238c3a}.bad{color:#d33a30}.warn{color:#b36800}
+.battle.panic{animation:panicShake .15s infinite;border-color:#ff6b3d}@keyframes panicShake{0%{transform:translateX(0)}25%{transform:translateX(-3px)}50%{transform:translateX(3px)}75%{transform:translateX(-2px)}100%{transform:translateX(0)}}
+.flashText{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);z-index:80;font-size:58px;font-weight:1000;color:#ffe05d;text-shadow:4px 4px 0 #fff,8px 8px 0 var(--line);animation:pop .75s forwards;pointer-events:none;white-space:nowrap}@keyframes pop{0%{transform:translate(-50%,-50%) scale(.25);opacity:0}35%{transform:translate(-50%,-50%) scale(1.15);opacity:1}100%{transform:translate(-50%,-80%) scale(.8);opacity:0}}
+.side{padding:16px}.side h2{margin:0 0 10px;text-transform:uppercase}.dragon-card{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:center;background:#e9f8ff;border:5px solid var(--line);padding:10px;margin-bottom:14px}.miniDragon{width:66px;height:60px;position:relative}.miniDragon:before{content:"";position:absolute;left:8px;top:18px;width:48px;height:34px;background:#9b68d8;border:5px solid var(--line);border-radius:18px}.miniDragon:after{content:"";position:absolute;left:2px;top:2px;width:36px;height:32px;background:#9b68d8;border:5px solid var(--line);border-radius:14px}
+.speech{font-weight:900;line-height:1.3}.legend{display:grid;gap:8px;margin-top:10px}.legend div{border:4px solid var(--line);background:#fff6d6;padding:8px;font-weight:900}
+.end{display:none;position:fixed;inset:0;background:rgba(20,30,55,.72);z-index:90;align-items:center;justify-content:center;padding:20px}.endbox{background:#fff6d6;border:7px solid var(--line);box-shadow:10px 10px 0 rgba(0,0,0,.28);padding:22px;max-width:560px;text-align:center}.endbox h2{font-size:2.2rem;margin:0 0 8px;text-transform:uppercase}.progress{height:26px;border:5px solid var(--line);background:#fff;margin:12px 0;overflow:hidden}.progressfill{height:100%;background:linear-gradient(90deg,#44b55a,#ffe06b,#ff7ba8);width:20%}
+</style>
+</head>
+<body>
+<div class="page">
+<section class="header"><h1>Past Irregular Quest</h1><div class="subtitle">Final World: Dragon Boss Mountain — build V1, V2, and V3 to defeat the dragon!</div></section>
+<main class="layout">
+<section class="panel">
+<div class="topbar"><div class="badges"><div class="badge">❤️ <span id="lives">3</span></div><div class="badge">⭐ <span id="score">0</span></div><div class="badge" id="timeBadge">⏱️ <span id="time">120</span>s</div><div class="badge">⚔️ <span id="hits">0</span>/16</div></div><div class="badge">Phase <span id="phase">1</span>/3</div></div>
+<div class="gamewrap">
+<div class="battle" id="battle">
+  <div class="mountain"></div><div class="lava"></div><div class="platform"></div>
+  <div class="promptBox"><div class="small">Choose 3 correct tiles and place them in order:</div><div class="verb">V1 → V2 → V3</div></div>
+  <div class="hpWrap"><div class="hpLabel">Dragon HP</div><div class="hpBar"><div class="hpFill" id="hpFill"></div></div></div>
+  <div class="dragon" id="dragon"><div class="wing"></div><div class="tail"></div><div class="dragonBody"></div><div class="dragonHead"><div class="dragonEye de1"></div><div class="dragonEye de2"></div><div class="dragonMouth"></div></div></div>
+  <div class="hero"><div class="sword"></div><div class="heroHead"></div><div class="heroBody"></div></div>
+  <div class="fireball" id="fireball">write</div>
+</div>
+<div class="answerZone">
+  <div class="slots"><div class="slot" id="slot0"></div><div class="slot" id="slot1"></div><div class="slot" id="slot2"></div></div>
+  <div class="tileGrid" id="tiles"></div>
+  <div class="actionRow"><button class="orange" onclick="undo()">Undo</button><button class="purple" onclick="clearSlots()">Clear</button><button class="green" onclick="checkAnswer()">Attack!</button></div>
+</div>
+<div class="controls"><div id="feedback" class="warn">Press Start. Pick 3 tiles in V1, V2, V3 order.</div><div><button class="green" onclick="startGame()">Start / Restart</button><button class="orange" onclick="pauseGame()">Pause</button></div></div>
+</div>
+</section>
+<aside class="side">
+<div class="dragon-card"><div class="miniDragon"></div><div class="speech" id="speech">The dragon throws 4 word tiles. Choose the correct 3 and put them in order!</div></div>
+<h2>How to Play</h2>
+<div class="legend"><div>🧩 Choose exactly 3 tiles.</div><div>📚 Order them as V1 → V2 → V3.</div><div>🔥 One tile is a tricky trap from the same verb family.</div><div>👑 Hard verbs appear more often.</div></div>
+<p style="font-weight:900;line-height:1.4">This final game practices the full irregular verb family.</p>
+</aside>
+</main>
+</div>
+<div class="end" id="end"><div class="endbox"><h2 id="endTitle">Dragon Defeated!</h2><p id="endText">Great work!</p><div class="progress"><div class="progressfill" id="progressfill"></div></div><button class="green" onclick="closeEnd();startGame()">Play Again</button><button class="pink" onclick="closeEnd()">Back</button></div></div>
+<script>
+const easy=[["go","went","gone"],["eat","ate","eaten"],["see","saw","seen"],["run","ran","run"],["come","came","come"],["do","did","done"],["make","made","made"],["take","took","taken"],["give","gave","given"],["have","had","had"]];
+const medium=[["bring","brought","brought"],["buy","bought","bought"],["catch","caught","caught"],["teach","taught","taught"],["think","thought","thought"],["find","found","found"],["tell","told","told"],["sell","sold","sold"],["send","sent","sent"],["keep","kept","kept"]];
+const hard=[["choose","chose","chosen"],["drive","drove","driven"],["forget","forgot","forgotten"],["speak","spoke","spoken"],["ride","rode","ridden"],["write","wrote","written"],["throw","threw","thrown"],["know","knew","known"],["swim","swam","swum"],["drink","drank","drunk"]];
+const trapMap={
+go:["goed","goes","going","gone"],
+eat:["eated","eats","eating","ate"],
+see:["seed","sees","seeing","saw"],
+run:["runned","runs","running","ran"],
+come:["comed","comes","coming","came"],
+do:["doed","does","doing","did"],
+make:["maked","makes","making","made"],
+take:["taked","takes","taking","took"],
+give:["gived","gives","giving","gave"],
+have:["haved","has","having","had"],
+bring:["bringed","brung","brings","broughten"],
+buy:["buyed","buys","buying","boughten"],
+catch:["catched","catches","catching","caughted"],
+teach:["teached","teaches","teaching","taughted"],
+think:["thinked","thinks","thinking","thoughted"],
+find:["finded","finds","finding","founden"],
+tell:["telled","tells","telling","tolded"],
+sell:["selled","sells","selling","solded"],
+send:["sended","sends","sending","sented"],
+keep:["keeped","keeps","keeping","kepted"],
+choose:["choosed","chooses","choosing","chosed"],
+drive:["drived","drives","driving","droven"],
+forget:["forgetted","forgets","forgetting","forgoten"],
+speak:["speaked","speaks","speaking","spoked"],
+ride:["rided","rides","riding","roden"],
+write:["writed","writes","writing","writen"],
+throw:["throwed","throws","throwing","throwen"],
+know:["knowed","knows","knowing","knewn"],
+swim:["swimmed","swims","swimming","swamed"],
+drink:["drinked","drinks","drinking","drunken"]
+};
+let score,lives,time,hits,phase,paused,timer,current,answer,selected=[],used=[],started=false,locked=false,lastBeep=99;
+const battle=document.getElementById("battle"),dragon=document.getElementById("dragon"),tiles=document.getElementById("tiles"),fireball=document.getElementById("fireball");
+function pick(a){return a[Math.floor(Math.random()*a.length)]}function shuffle(a){return a.sort(()=>Math.random()-.5)}
+function startGame(){clearInterval(timer);score=0;lives=3;time=120;hits=0;phase=1;paused=false;started=true;locked=false;lastBeep=99;battle.classList.remove("panic");document.getElementById("timeBadge").classList.remove("danger");newQuestion();ui();fb("Choose V1, V2, V3 in order!","warn");say("Final battle! Build the verb family!");timer=setInterval(()=>{if(!paused){time--;panicTick();if(time<=0)end(false);ui()}},1000)}
+function pauseGame(){if(!started)return;paused=!paused;fb(paused?"Paused.":"Fight!","warn")}
+function ui(){document.getElementById("score").textContent=score;document.getElementById("lives").textContent=lives;document.getElementById("time").textContent=time;document.getElementById("hits").textContent=hits;document.getElementById("phase").textContent=phase;document.getElementById("hpFill").style.width=Math.max(0,100-(hits/16*100))+"%"}
+function newQuestion(){
+ locked=false;selected=[];used=[];clearSlotText();
+ phase=hits<5?1:hits<10?2:3;
+ const pool=phase===1?easy.concat(medium,hard):phase===2?medium.concat(hard,hard):hard.concat(hard,hard,hard,medium);
+ current=pick(pool);answer=[...current];fireball.textContent=current[0];
+ let possibleTraps=(trapMap[current[0]]||[current[0]+"ed",current[0]+"s",current[0]+"ing"]).filter(t=>!answer.includes(t));
+let trap=pick(possibleTraps);
+ let opts=shuffle([...answer,trap]);
+ tiles.innerHTML="";
+ opts.forEach((w,i)=>{let b=document.createElement("button");b.className="tile";b.textContent=w;b.onclick=()=>pickTile(w,i,b);tiles.appendChild(b)});
+}
+function pickTile(w,i,b){if(locked||paused||!started||used.includes(i)||selected.length>=3)return;selected.push(w);used.push(i);b.disabled=true;document.getElementById("slot"+(selected.length-1)).textContent=w}
+function undo(){if(locked||selected.length===0)return;selected.pop();used.pop();renderTileDisabled();clearSlotText();selected.forEach((w,i)=>document.getElementById("slot"+i).textContent=w)}
+function clearSlots(){if(locked)return;selected=[];used=[];renderTileDisabled();clearSlotText()}
+function renderTileDisabled(){[...tiles.children].forEach((b,i)=>b.disabled=used.includes(i))}
+function clearSlotText(){for(let i=0;i<3;i++)document.getElementById("slot"+i).textContent=""}
+function checkAnswer(){
+ if(locked||paused||!started)return;
+ if(selected.length<3){fb("Choose 3 tiles first: V1, V2, V3.","bad");beep("bad");return}
+ locked=true;
+ const ok=JSON.stringify(selected)===JSON.stringify(answer);
+ if(ok){
+   hits++;score+=phase===3?20:15;dragon.classList.add("hit");setTimeout(()=>dragon.classList.remove("hit"),300);
+   flash("HIT!");beep("good");say(pick(["Perfect family!","Dragon weakened!","V1, V2, V3 power!"]));fb("Correct! "+answer.join(" → "),"good");
+   if(hits>=16){setTimeout(()=>end(true),750);ui();return}
+   setTimeout(()=>{newQuestion();ui()},850);
+ }else{
+   lives--;beep("bad");flash("OUCH!");fb("Wrong order! Correct: "+answer.join(" → "),"bad");say("The dragon attacks!");
+   if(lives<=0){setTimeout(()=>end(false),800);ui();return}
+   setTimeout(()=>{newQuestion();ui()},1250);
+ }
+ ui();
+}
+function flash(txt){const f=document.createElement("div");f.className="flashText";f.textContent=txt;battle.appendChild(f);setTimeout(()=>f.remove(),800)}
+function fb(m,cl){let e=document.getElementById("feedback");e.textContent=m;e.className=cl}
+function say(m){document.getElementById("speech").textContent=m}
+function panicTick(){const tb=document.getElementById("timeBadge");if(time<=20){tb.classList.add("danger");battle.classList.add("panic")}if(time<=10&&time!==lastBeep){beep("tick");flash(time);lastBeep=time}}
+function beep(type){try{const a=new(window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=type==="bad"?160:type==="tick"?520:880;g.gain.value=type==="tick"?.055:.08;o.type=type==="tick"?"sawtooth":"square";o.start();o.stop(a.currentTime+(type==="tick"?.08:.14))}catch(e){}}
+function end(win){clearInterval(timer);started=false;battle.classList.remove("panic");document.getElementById("end").style.display="flex";document.getElementById("endTitle").textContent=win?"Dragon Defeated!":"Try Again!";document.getElementById("endText").innerHTML=win?`Score: <b>${score}</b><br>Dragon defeated. Past Irregular Quest complete!`:`Score: <b>${score}</b><br>Hits landed: <b>${hits}</b>/16<br>Train and fight again!`;document.getElementById("progressfill").style.width=Math.min(100,hits/16*100)+"%"}
+function closeEnd(){document.getElementById("end").style.display="none"}
+</script>
+</body>
+</html>
