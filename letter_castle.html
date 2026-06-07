@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Past Irregular Quest - Letter Castle</title>
+<style>
+:root{
+  --ink:#24304a;--line:#17213a;--sky:#93ddff;--grass:#70cf68;--hill:#4cad58;
+  --cream:#fff6d6;--yellow:#ffe05d;--orange:#ff9a3c;--pink:#ff7ba8;--red:#f04f46;
+  --purple:#9b68d8;--blue:#4ea6ff;--green:#44b55a;--white:#fffdf4;--stone:#b9b8c8;
+  --darkstone:#89879d;--shadow:rgba(0,0,0,.25)
+}
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;font-family:"Trebuchet MS","Century Gothic",Arial,sans-serif;color:var(--ink);
+  background:
+    radial-gradient(circle at 12% 12%,#fff 0 18px,transparent 19px),
+    radial-gradient(circle at 17% 13%,#fff 0 15px,transparent 16px),
+    radial-gradient(circle at 82% 10%,#fff 0 22px,transparent 23px),
+    linear-gradient(var(--sky) 0 60%,var(--grass) 60% 72%,var(--hill) 72%);
+  overflow-x:hidden;
+}
+.page{max-width:1160px;margin:0 auto;padding:22px 16px 34px}
+.header{background:var(--cream);border:6px solid var(--line);box-shadow:8px 8px 0 var(--shadow);padding:18px 20px;position:relative;overflow:hidden}
+.header:after{content:"";position:absolute;right:26px;top:18px;width:72px;height:72px;background:var(--yellow);border:6px solid var(--line);border-radius:50%;box-shadow:6px 6px 0 rgba(0,0,0,.15)}
+h1{margin:0;font-size:clamp(2rem,5vw,4rem);text-transform:uppercase}
+.subtitle{font-weight:900;font-size:1.08rem;margin-top:6px;color:rgba(36,48,74,.78)}
+.layout{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-top:18px}
+@media(max-width:950px){.layout{grid-template-columns:1fr}}
+.panel,.side{background:var(--white);border:6px solid var(--line);box-shadow:8px 8px 0 var(--shadow)}
+.topbar{padding:12px 14px;background:#ffcf58;border-bottom:6px solid var(--line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-weight:900}
+.badges{display:flex;gap:8px;flex-wrap:wrap}.badge{background:#fff;border:4px solid var(--line);padding:6px 9px;box-shadow:3px 3px 0 rgba(0,0,0,.15)}
+.gamewrap{padding:16px}
+.roomTitle{background:#fff3c7;border:5px solid var(--line);padding:10px;margin-bottom:10px;text-align:center;box-shadow:5px 5px 0 rgba(0,0,0,.14)}
+.roomTitle .room{font-size:clamp(1.35rem,4vw,2.1rem);font-weight:1000;text-transform:uppercase;color:#e24a3b}
+.roomTitle .dialogue{font-weight:900;color:rgba(36,48,74,.78)}
+.prompt{background:#fff;border:5px solid var(--line);padding:10px;margin-bottom:12px;text-align:center;box-shadow:5px 5px 0 rgba(0,0,0,.14)}
+.prompt .small{font-size:.95rem;font-weight:900;color:rgba(36,48,74,.72)}
+.prompt .verb{font-size:clamp(1.55rem,4vw,2.45rem);font-weight:1000;text-transform:uppercase;color:#2f65c8;line-height:1.25}
+.crossWrap{padding:16px}
+.crossCastle{
+  position:relative;
+  width:100%;
+  min-height:650px;
+  border:6px solid var(--line);
+  background:linear-gradient(#93ddff 0 24%,#8cdb72 24% 100%);
+  box-shadow:6px 6px 0 rgba(0,0,0,.2);
+  overflow:hidden;
+  padding:18px;
+}
+.castleShell{
+  width:min(520px,92%);
+  margin:0 auto;
+  border:7px solid var(--line);
+  background:var(--stone);
+  box-shadow:8px 8px 0 rgba(0,0,0,.22);
+  position:relative;
+}
+.castleShell:before,.castleShell:after{
+  content:"";position:absolute;top:42px;width:74px;height:520px;background:var(--stone);border:7px solid var(--line);z-index:0;
+}
+.castleShell:before{left:-72px}.castleShell:after{right:-72px}
+.roofTop{
+  width:100%;height:64px;background:var(--pink);border-bottom:7px solid var(--line);position:relative;z-index:2;
+}
+.roofTop:before,.roofTop:after{
+  content:"";position:absolute;top:-52px;width:90px;height:58px;background:var(--pink);border:7px solid var(--line);
+  clip-path:polygon(50% 0,100% 100%,0 100%);
+}
+.roofTop:before{left:20px}.roofTop:after{right:20px}
+.roomRow{
+  position:relative;z-index:3;
+  height:88px;border-bottom:6px solid var(--line);display:grid;grid-template-columns:90px 1fr 90px;
+  align-items:center;background:#d9d7e5;
+}
+.roomRow:nth-child(3){background:#ffd3e1}.roomRow:nth-child(4){background:#ffe4a3}.roomRow:nth-child(5){background:#d7c0ff}.roomRow:nth-child(6){background:#a2aedc}.roomRow:nth-child(7){background:#ffcbdf}
+.roomRow.active{outline:7px solid #ffe05d;z-index:8;animation:activePulse .8s infinite alternate}
+@keyframes activePulse{from{filter:brightness(1)}to{filter:brightness(1.15)}}
+.roomIcon{font-size:38px;text-align:center;font-weight:1000;text-shadow:2px 2px 0 #fff}
+.roomName{font-weight:1000;text-transform:uppercase;font-size:18px}
+.doorLine{display:flex;gap:6px;justify-content:center}
+.miniDoor{
+  width:42px;height:54px;background:#8b5a2b;border:5px solid var(--line);border-bottom:0;border-radius:20px 20px 0 0;
+  position:relative;transition:.3s
+}
+.miniDoor.open{height:16px;background:#ffcf58;align-self:end}
+.miniDoor.current{box-shadow:0 0 0 5px #fff,0 0 0 10px #ffe05d}
+.pixelHero{
+  position:absolute;z-index:20;width:52px;height:62px;left:26px;transition:top .45s ease;
+}
+.heroHead{position:absolute;left:11px;top:2px;width:30px;height:28px;background:#ffcf9b;border:4px solid var(--line);border-radius:10px}
+.heroBody{position:absolute;left:7px;top:29px;width:38px;height:30px;background:#4ea6ff;border:4px solid var(--line);border-radius:10px}
+.heroHead:before,.heroHead:after{content:"";position:absolute;top:10px;width:4px;height:4px;background:var(--line)}
+.heroHead:before{left:8px}.heroHead:after{right:8px}
+.heroBody:after{content:"";position:absolute;left:8px;right:8px;bottom:5px;height:4px;background:var(--line)}
+.pixelPrince{
+  position:absolute;right:28px;top:88px;z-index:22;width:66px;height:82px;display:none;
+}
+.pixelPrince.show{display:block}
+.princeHead{position:absolute;left:16px;top:12px;width:34px;height:32px;background:#ffcf9b;border:4px solid var(--line);border-radius:10px}
+.princeCrown{position:absolute;left:13px;top:-8px;width:40px;height:24px;background:#ffe05d;border:4px solid var(--line);clip-path:polygon(0 100%,0 35%,28% 62%,50% 0,72% 62%,100% 35%,100% 100%)}
+.princeBody{position:absolute;left:8px;top:42px;width:50px;height:38px;background:#7c67ff;border:4px solid var(--line);border-radius:12px}
+.princeHead:before,.princeHead:after{content:"";position:absolute;top:12px;width:4px;height:4px;background:var(--line)}
+.princeHead:before{left:9px}.princeHead:after{right:9px}
+.chainBar{position:absolute;left:2px;right:2px;top:34px;height:12px;background:#696b77;border:4px solid var(--line);transform:rotate(-12deg)}
+.chainBar.break{animation:chainBreak .8s forwards}
+@keyframes chainBreak{to{opacity:0;transform:translateY(-28px) rotate(25deg)}}
+.answerPanel{
+  margin-top:16px;border:6px solid var(--line);background:#fff6d6;padding:12px;box-shadow:6px 6px 0 rgba(0,0,0,.18)
+}
+.banner{background:#fff;border:5px solid var(--line);padding:8px 14px;font-weight:1000;text-align:center;box-shadow:5px 5px 0 rgba(0,0,0,.14);margin-bottom:10px}
+.slots{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:12px auto}
+.slot{min-width:38px;height:46px;background:#fff;border:5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:23px;font-weight:1000;box-shadow:4px 4px 0 rgba(0,0,0,.14)}
+.letters{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:16px auto 8px}
+.letter{min-width:46px;height:48px;border:5px solid var(--line);background:var(--yellow);color:var(--line);font-size:23px;font-weight:1000;box-shadow:4px 4px 0 rgba(0,0,0,.16);cursor:pointer}
+.letter:hover{background:#ffed8a;transform:translateY(-2px)}.letter:disabled{opacity:.22;cursor:default;transform:none}
+.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:12px}
+button{font-family:inherit;font-weight:1000;border:5px solid var(--line);background:#55a6ff;color:#fff;padding:10px 14px;box-shadow:4px 4px 0 rgba(0,0,0,.2);cursor:pointer;font-size:1rem}
+button:hover{filter:brightness(1.08)}button.orange{background:var(--orange)}button.green{background:var(--green)}button.pink{background:#ff7ba8}button.purple{background:var(--purple)}
+.controls{margin-top:12px;display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+#feedback{font-weight:1000;min-height:28px;font-size:1.08rem}.good{color:#238c3a}.bad{color:#d33a30}.warn{color:#b36800}
+.sparkle,.unlock{position:absolute;z-index:70;font-size:44px;font-weight:1000;pointer-events:none;text-shadow:3px 3px 0 white,5px 5px 0 var(--line);animation:pop .85s forwards}
+@keyframes pop{0%{transform:scale(.25);opacity:0}35%{transform:scale(1.25);opacity:1}100%{transform:scale(.75) translateY(-38px);opacity:0}}
+.crossCastle.shake{animation:shake .3s}@keyframes shake{0%{transform:translateX(0)}25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}100%{transform:translateX(0)}}
+.side{padding:16px}.side h2{margin:0 0 10px;text-transform:uppercase}
+.castle-card{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:center;background:#e9f8ff;border:5px solid var(--line);padding:10px;margin-bottom:14px}
+.princeIcon{width:62px;height:72px;position:relative}.princeIcon .head{position:absolute;left:14px;top:10px;width:34px;height:32px;background:#ffcf9b;border:4px solid var(--line);border-radius:10px}.princeIcon .body{position:absolute;left:8px;top:42px;width:48px;height:28px;background:#7c67ff;border:4px solid var(--line);border-radius:10px}.princeIcon .crown{position:absolute;left:12px;top:0;width:38px;height:24px;background:#ffe05d;border:4px solid var(--line);clip-path:polygon(0 100%,0 35%,28% 62%,50% 0,72% 62%,100% 35%,100% 100%)}
+.speech{font-weight:900;line-height:1.3}.legend{display:grid;gap:8px;margin-top:10px}.legend div{border:4px solid var(--line);background:#fff6d6;padding:8px;font-weight:900}
+.end{display:none;position:fixed;inset:0;background:rgba(20,30,55,.72);z-index:90;align-items:center;justify-content:center;padding:20px}.endbox{background:#fff6d6;border:7px solid var(--line);box-shadow:10px 10px 0 rgba(0,0,0,.28);padding:22px;max-width:560px;text-align:center}.endbox h2{font-size:2.2rem;margin:0 0 8px;text-transform:uppercase}.progress{height:26px;border:5px solid var(--line);background:#fff;margin:12px 0;overflow:hidden}.progressfill{height:100%;background:linear-gradient(90deg,#44b55a,#ffe06b,#ff7ba8);width:20%}
+</style>
+</head>
+<body>
+<div class="page">
+<section class="header"><h1>Past Irregular Quest</h1><div class="subtitle">World 4: Letter Castle — Save Prince Leo!</div></section>
+<main class="layout">
+<section class="panel">
+<div class="topbar"><div class="badges"><div class="badge">❤️ <span id="lives">3</span></div><div class="badge">⭐ <span id="score">0</span></div><div class="badge">🚪 <span id="unlocked">0</span>/18</div></div><div class="badge">Room <span id="roomNum">1</span>/6</div></div>
+<div class="gamewrap">
+<div class="roomTitle"><div class="room" id="roomTitle">Front Gate</div><div class="dialogue" id="roomLine">The guard blocks the entrance.</div></div>
+<div class="prompt"><div class="small" id="taskLabel">Build the SIMPLE PAST of:</div><div class="verb" id="clueVerb">bring</div></div>
+
+<div class="crossCastle" id="crossCastle">
+  <div class="castleShell" id="castleShell">
+    <div class="roofTop"></div>
+    <div id="roomRows"></div>
+  </div>
+  <div class="pixelHero" id="hero"><div class="heroHead"></div><div class="heroBody"></div></div>
+  <div class="pixelPrince" id="prince"><div class="princeCrown"></div><div class="princeHead"></div><div class="princeBody"></div><div class="chainBar" id="chainBar"></div></div>
+</div>
+
+<div class="answerPanel">
+  <div class="banner" id="hintBanner">Click letters to build the password.</div>
+  <div class="slots" id="slots"></div>
+  <div class="letters" id="letters"></div>
+  <div class="actions"><button class="orange" onclick="undo()">Undo</button><button class="purple" onclick="clearLetters()">Clear</button><button class="green" onclick="checkAnswer()">Unlock Door</button></div>
+</div>
+
+<div class="controls"><div id="feedback" class="warn">Press Start. Build the answer by clicking letters.</div><div><button class="green" onclick="startGame()">Start / Restart</button><button class="pink" id="nextBtn" onclick="nextQuestion()" disabled>Next Door</button></div></div>
+</div>
+</section>
+<aside class="side"><div class="castle-card"><div class="princeIcon"><div class="crown"></div><div class="head"></div><div class="body"></div></div><div class="speech" id="speech">Prince Leo is trapped at the top. Unlock the castle room by room!</div></div><h2>How to Play</h2><div class="legend"><div>🔤 Click letters to build the word.</div><div>🚪 Open 3 doors in each room.</div><div>💡 First wrong answer gives a clue.</div><div>🔓 Second wrong answer shows the answer and opens the door.</div></div><p style="font-weight:900;line-height:1.4">Goal: climb the castle and save Prince Leo.</p></aside>
+</main>
+</div>
+<div class="end" id="end"><div class="endbox"><h2 id="endTitle">Prince Saved!</h2><p id="endText">Great work!</p><div class="progress"><div class="progressfill" id="progressfill"></div></div><button class="green" onclick="closeEnd();startGame()">Play Again</button><button class="pink" onclick="closeEnd()">Back</button></div></div>
+<script>
+const rooms=[["Prince Tower","Prince Leo is trapped by alphabet chains!","tower","👑"],["Dragon Chamber","The sleepy dragon guards the stairs.","dragon","🐉"],["Library","The wizard librarian mixed up the books.","library","📚"],["Great Hall","The royal chef dropped the magic recipe.","hall","🎂"],["Guard Room","The knight asks for the password.","guard","🛡"],["Front Gate","The guard blocks the entrance.","front","🏰"]];
+const hard=[["choose","chose","chosen"],["drive","drove","driven"],["forget","forgot","forgotten"],["speak","spoke","spoken"],["ride","rode","ridden"],["write","wrote","written"],["throw","threw","thrown"],["know","knew","known"],["swim","swam","swum"],["drink","drank","drunk"]];
+const medium=[["bring","brought","brought"],["buy","bought","bought"],["catch","caught","caught"],["teach","taught","taught"],["think","thought","thought"],["find","found","found"],["tell","told","told"],["sell","sold","sold"],["send","sent","sent"],["keep","kept","kept"]];
+const easy=[["go","went","gone"],["eat","ate","eaten"],["see","saw","seen"],["run","ran","run"],["come","came","come"],["do","did","done"],["make","made","made"],["take","took","taken"],["give","gave","given"],["have","had","had"]];
+let score,lives,unlocked,roomIndex,current,answer,task,selected=[],used=[],attempts=0,locked=true;
+const slots=document.getElementById("slots"),letters=document.getElementById("letters"),cross=document.getElementById("crossCastle"),hero=document.getElementById("hero"),prince=document.getElementById("prince"),chain=document.getElementById("chainBar");
+function pick(a){return a[Math.floor(Math.random()*a.length)]}function shuffle(a){return a.sort(()=>Math.random()-.5)}
+function buildCastle(){
+ const box=document.getElementById("roomRows");box.innerHTML="";
+ rooms.forEach((r,i)=>{
+  const row=document.createElement("div");row.className="roomRow";row.id="roomRow"+i;
+  const icon=document.createElement("div");icon.className="roomIcon";icon.textContent=r[3];
+  const name=document.createElement("div");name.className="roomName";name.textContent=r[0];
+  const doors=document.createElement("div");doors.className="doorLine";
+  for(let d=0;d<3;d++){let md=document.createElement("div");md.className="miniDoor";md.id="door"+(i*3+d);doors.appendChild(md)}
+  row.append(icon,name,doors);box.appendChild(row);
+ });
+}
+function startGame(){score=0;lives=3;unlocked=0;locked=false;document.getElementById("nextBtn").disabled=true;chain.classList.remove("break");prince.classList.remove("show");buildCastle();newQuestion();ui();fb("Build the password and save Prince Leo!","warn");say("Start at the front gate and climb upward!")}
+function ui(){document.getElementById("score").textContent=score;document.getElementById("lives").textContent=lives;document.getElementById("unlocked").textContent=unlocked;document.getElementById("roomNum").textContent=Math.min(6,roomIndex+1);updateCastle()}
+function updateCastle(){
+ document.querySelectorAll(".roomRow").forEach(r=>r.classList.remove("active"));
+ for(let i=0;i<unlocked;i++){const door=document.getElementById("door"+(17-i)); if(door)door.classList.add("open");}
+ const activeRoomIndex=5-Math.floor(unlocked/3);
+ const row=document.getElementById("roomRow"+activeRoomIndex);
+ if(row)row.classList.add("active");
+ const activeDoor=document.getElementById("door"+(17-unlocked));
+ if(activeDoor)activeDoor.classList.add("current");
+ document.querySelectorAll(".miniDoor").forEach((d,i)=>{if(i!==17-unlocked)d.classList.remove("current")});
+ const y=[90,178,266,354,442,530][activeRoomIndex]||530;
+ hero.style.top=(y-12)+"px";
+ hero.style.left="18px";
+ if(unlocked>=15)prince.classList.add("show");
+}
+function newQuestion(){
+ selected=[];used=[];attempts=0;locked=false;document.getElementById("nextBtn").disabled=true;
+ roomIndex=Math.min(5,Math.floor(unlocked/3));const r=rooms[5-roomIndex];document.getElementById("roomTitle").textContent=r[0];document.getElementById("roomLine").textContent=r[1];
+ document.getElementById("hintBanner").textContent="Click letters to build the password.";
+ const pool=unlocked<6?easy.concat(medium):unlocked<12?medium.concat(hard,hard):hard.concat(hard,medium);
+ current=pick(pool);
+ task=unlocked<6?"past":unlocked<12?"participle":(Math.random()>.35?"participle":"past");
+ answer=task==="past"?current[1]:current[2];
+ document.getElementById("taskLabel").textContent=task==="past"?"Build the SIMPLE PAST of:":"Build the PAST PARTICIPLE of:";
+ document.getElementById("clueVerb").textContent=task==="past"?current[0]:(current[0]+" → "+current[1]+" → ?");
+ render();ui();
+}
+function render(){slots.innerHTML="";letters.innerHTML="";for(let i=0;i<answer.length;i++){const s=document.createElement("div");s.className="slot";s.textContent=selected[i]||"";slots.appendChild(s)}const arr=shuffle(answer.toUpperCase().split("").map((l,i)=>({l,i})));arr.forEach(obj=>{const b=document.createElement("button");b.className="letter";b.textContent=obj.l;b.disabled=used.includes(obj.i);b.onclick=()=>pickLetter(obj.l,obj.i);letters.appendChild(b)})}
+function pickLetter(l,i){if(locked||used.includes(i)||selected.length>=answer.length)return;selected.push(l);used.push(i);render()}
+function undo(){if(locked||!selected.length)return;selected.pop();used.pop();render()}
+function clearLetters(){if(locked)return;selected=[];used=[];render()}
+function checkAnswer(){if(locked)return;const built=selected.join("").toLowerCase();if(built===answer.toLowerCase()){success(false)}else{attempts++;cross.classList.add("shake");setTimeout(()=>cross.classList.remove("shake"),320);beep("bad");if(attempts===1){fb("Try again! Clue: starts with "+answer.slice(0,Math.min(2,answer.length)).toUpperCase()+"...","bad");document.getElementById("hintBanner").textContent="Clue: starts with "+answer.slice(0,Math.min(2,answer.length)).toUpperCase()+"...";say("That door is still locked!")}else{selected=answer.toUpperCase().split("");used=[...answer].map((_,i)=>i);render();fb("The answer is "+answer.toUpperCase()+". The door opens!","warn");document.getElementById("hintBanner").textContent="Answer: "+answer.toUpperCase();success(true)}}}
+function success(revealed){
+ locked=true;score+=revealed?5:10;unlocked++;beep("good");roomReward();say(unlocked>=18?"Prince Leo is free!":pick(["Door unlocked!","Keep climbing!","You are getting closer!"]));
+ if(unlocked>=18){chain.classList.add("break");setTimeout(()=>end(),1300)}
+ document.getElementById("nextBtn").disabled=false;ui();
+}
+function roomReward(){const item=rooms[5-Math.min(5,Math.floor((unlocked-1)/3))][3];for(let i=0;i<12;i++){setTimeout(()=>{const e=document.createElement("div");e.className="sparkle";e.textContent=pick(["✨","⭐","🌟",item,"🎉"]);e.style.left=(30+Math.random()*45)+"%";e.style.top=(14+Math.random()*62)+"%";cross.appendChild(e);setTimeout(()=>e.remove(),900)},i*60)}}
+function nextQuestion(){if(unlocked>=18)return;newQuestion()}
+function fb(m,cl){let e=document.getElementById("feedback");e.textContent=m;e.className=cl}
+function say(m){document.getElementById("speech").textContent=m}
+function beep(type){try{const a=new(window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=type==="bad"?170:860;g.gain.value=.08;o.type="square";o.start();o.stop(a.currentTime+.13)}catch(e){}}
+function end(){document.getElementById("end").style.display="flex";document.getElementById("endTitle").textContent="Prince Leo Saved!";document.getElementById("endText").innerHTML=`Score: <b>${score}</b><br>Doors unlocked: <b>${unlocked}</b>/18<br>Castle climbed. Prince rescued!`;document.getElementById("progressfill").style.width="100%"}
+function closeEnd(){document.getElementById("end").style.display="none"}
+buildCastle();updateCastle();
+</script>
+</body>
+</html>
