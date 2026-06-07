@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Past Irregular Quest - Participle Pipes</title>
+<style>
+:root{
+  --ink:#24304a;--line:#17213a;--sky:#8bdcff;--cloud:#fff;--grass:#73cf68;--hill:#4bac58;
+  --cream:#fff6d6;--yellow:#ffe05d;--orange:#ff9a3c;--pink:#ff7ba8;--red:#f04f46;
+  --purple:#9b68d8;--blue:#4ea6ff;--green:#44b55a;--white:#fffdf4;--shadow:rgba(0,0,0,.25);
+  --pipe1:#34c76a;--pipe2:#3aa7ff;--pipe3:#ff77a9;--pipe4:#ffd84a;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;font-family:"Trebuchet MS","Century Gothic",Arial,sans-serif;color:var(--ink);
+  background:
+    radial-gradient(circle at 10% 12%,#fff 0 18px,transparent 19px),
+    radial-gradient(circle at 15% 13%,#fff 0 15px,transparent 16px),
+    radial-gradient(circle at 82% 11%,#fff 0 22px,transparent 23px),
+    linear-gradient(var(--sky) 0 60%,var(--grass) 60% 72%,var(--hill) 72%);
+  overflow-x:hidden;
+}
+.page{max-width:1120px;margin:0 auto;padding:22px 16px 34px}
+.header{background:var(--cream);border:6px solid var(--line);box-shadow:8px 8px 0 var(--shadow);padding:18px 20px;position:relative;overflow:hidden}
+.header:after{content:"";position:absolute;right:26px;top:18px;width:72px;height:72px;background:var(--yellow);border:6px solid var(--line);border-radius:50%;box-shadow:6px 6px 0 rgba(0,0,0,.15)}
+h1{margin:0;font-size:clamp(2rem,5vw,4rem);text-transform:uppercase}.subtitle{font-weight:900;font-size:1.08rem;margin-top:6px;color:rgba(36,48,74,.78)}
+.layout{display:grid;grid-template-columns:1fr 310px;gap:18px;margin-top:18px}@media(max-width:900px){.layout{grid-template-columns:1fr}}
+.panel,.side{background:var(--white);border:6px solid var(--line);box-shadow:8px 8px 0 var(--shadow)}
+.topbar{padding:12px 14px;background:#ffcf58;border-bottom:6px solid var(--line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-weight:900}
+.badges{display:flex;gap:8px;flex-wrap:wrap}.badge{background:#fff;border:4px solid var(--line);padding:6px 9px;box-shadow:3px 3px 0 rgba(0,0,0,.15)}
+.gamewrap{padding:16px}.prompt{background:#fff3c7;border:5px solid var(--line);padding:12px;margin-bottom:12px;text-align:center;box-shadow:5px 5px 0 rgba(0,0,0,.14)}
+.prompt .small{font-size:.95rem;font-weight:900;color:rgba(36,48,74,.72)}.prompt .verb{font-size:clamp(2rem,5vw,3.2rem);font-weight:1000;text-transform:uppercase;color:#e24a3b}
+.stage{
+  position:relative;width:100%;max-width:760px;aspect-ratio:1/.72;margin:0 auto;
+  border:6px solid var(--line);background:linear-gradient(#91e3ff 0 56%,#97e66d 56% 100%);
+  box-shadow:6px 6px 0 rgba(0,0,0,.2);overflow:hidden;
+}
+.cloud{position:absolute;background:white;border:4px solid var(--line);border-radius:999px;opacity:.95}.cloud:before,.cloud:after{content:"";position:absolute;background:white;border:4px solid var(--line);border-radius:50%}
+.c1{left:8%;top:10%;width:70px;height:28px}.c1:before{left:12px;top:-18px;width:32px;height:32px}.c1:after{right:10px;top:-12px;width:26px;height:26px}
+.c2{right:9%;top:13%;width:90px;height:32px}.c2:before{left:15px;top:-20px;width:36px;height:36px}.c2:after{right:15px;top:-14px;width:28px;height:28px}
+.hill{position:absolute;bottom:0;border:5px solid var(--line);border-bottom:0;border-radius:999px 999px 0 0;background:#65c95c}
+.h1{left:-40px;width:220px;height:115px}.h2{right:-40px;width:260px;height:135px;background:#58bb55}
+.character{
+  position:absolute;left:50%;bottom:142px;width:58px;height:68px;transform:translateX(-50%);
+  z-index:8;transition:all .45s cubic-bezier(.2,.8,.2,1);
+}
+.body{
+  position:absolute;bottom:0;left:6px;width:46px;height:48px;background:#ff9a3c;border:5px solid var(--line);
+  border-radius:20px 20px 14px 14px;box-shadow:4px 4px 0 rgba(0,0,0,.15);
+}
+.ear{position:absolute;top:0;width:18px;height:20px;background:#ff9a3c;border:5px solid var(--line);border-radius:50%}
+.eleft{left:5px}.eright{right:5px}.eye{position:absolute;top:22px;width:7px;height:7px;background:var(--line);z-index:2}.eye.left{left:18px}.eye.right{right:18px}
+.mouth{position:absolute;left:19px;top:38px;width:20px;height:6px;background:var(--line);border-radius:0 0 10px 10px;z-index:2}
+.pipeRow{position:absolute;left:0;right:0;bottom:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:0 16px;z-index:5}
+.pipeWrap{position:relative;height:155px;cursor:pointer;display:flex;align-items:flex-end;justify-content:center;transition:.12s}
+.pipeWrap:hover{transform:translateY(-6px)}
+.pipe{width:100%;max-width:150px;height:112px;border:6px solid var(--line);border-radius:14px 14px 0 0;position:relative;box-shadow:5px 5px 0 rgba(0,0,0,.18)}
+.pipe:before{content:"";position:absolute;left:-13px;right:-13px;top:-34px;height:42px;border:6px solid var(--line);border-radius:14px;background:inherit}
+.pipe:after{content:"";position:absolute;left:17px;top:20px;width:18px;height:65px;background:rgba(255,255,255,.25)}
+.pipeWord{position:absolute;top:-68px;left:50%;transform:translateX(-50%);background:#fff;border:5px solid var(--line);padding:6px 10px;font-weight:1000;font-size:18px;box-shadow:4px 4px 0 rgba(0,0,0,.15);white-space:nowrap}
+.p1{background:var(--pipe1)}.p2{background:var(--pipe2)}.p3{background:var(--pipe3)}.p4{background:var(--pipe4)}
+.sparkle{position:absolute;font-size:40px;font-weight:1000;color:#ffe05d;text-shadow:3px 3px 0 #fff,5px 5px 0 var(--line);z-index:30;animation:pop .6s forwards;pointer-events:none}
+.smoke{position:absolute;font-size:34px;font-weight:1000;color:#9b68d8;text-shadow:3px 3px 0 #fff,5px 5px 0 var(--line);z-index:30;animation:pop .6s forwards;pointer-events:none}
+@keyframes pop{0%{transform:scale(.3);opacity:0}50%{transform:scale(1.2);opacity:1}100%{transform:scale(.8);opacity:0}}
+.controls{margin-top:12px;display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+button{font-family:inherit;font-weight:1000;border:5px solid var(--line);background:#55a6ff;color:#fff;padding:10px 14px;box-shadow:4px 4px 0 rgba(0,0,0,.2);cursor:pointer;font-size:1rem}
+button:hover{filter:brightness(1.08)}button.orange{background:var(--orange)}button.green{background:var(--green)}button.pink{background:#ff7ba8}
+#feedback{font-weight:1000;min-height:28px;font-size:1.08rem}.good{color:#238c3a}.bad{color:#d33a30}.warn{color:#b36800}
+.side{padding:16px}.side h2{margin:0 0 10px;text-transform:uppercase}
+.pipe-card{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:center;background:#e9f8ff;border:5px solid var(--line);padding:10px;margin-bottom:14px}
+.pipeIcon{width:56px;height:62px;background:#44b55a;border:5px solid var(--line);border-radius:12px 12px 0 0;position:relative}.pipeIcon:before{content:"";position:absolute;left:-10px;right:-10px;top:-20px;height:25px;background:#44b55a;border:5px solid var(--line);border-radius:10px}
+.speech{font-weight:900;line-height:1.3}.legend{display:grid;gap:8px;margin-top:10px}.legend div{border:4px solid var(--line);background:#fff6d6;padding:8px;font-weight:900}
+.end{display:none;position:fixed;inset:0;background:rgba(20,30,55,.72);z-index:50;align-items:center;justify-content:center;padding:20px}
+.endbox{background:#fff6d6;border:7px solid var(--line);box-shadow:10px 10px 0 rgba(0,0,0,.28);padding:22px;max-width:560px;text-align:center}.endbox h2{font-size:2.2rem;margin:0 0 8px;text-transform:uppercase}
+.progress{height:26px;border:5px solid var(--line);background:#fff;margin:12px 0;overflow:hidden}.progressfill{height:100%;background:linear-gradient(90deg,#44b55a,#ffe06b,#ff7ba8);width:20%}
+
+.pipe.flash .pipe,
+.pipe.flash .pipe:before{
+  animation: pipeFlash .55s alternate 4;
+}
+@keyframes pipeFlash{
+  from{filter:brightness(1)}
+  to{filter:brightness(1.8);box-shadow:0 0 22px #ffe05d}
+}
+.character.dive{
+  animation: divePipe .78s forwards;
+}
+@keyframes divePipe{
+  0%{transform:translateX(-50%) translateY(0) scale(1)}
+  35%{transform:translateX(-50%) translateY(-64px) scale(1.05)}
+  72%{transform:translateX(-50%) translateY(88px) scale(.72)}
+  100%{transform:translateX(-50%) translateY(140px) scale(.12);opacity:0}
+}
+.character.bump{
+  animation: bumpBack .58s forwards;
+}
+@keyframes bumpBack{
+  0%{transform:translateX(-50%) rotate(0deg)}
+  35%{transform:translateX(-50%) translateY(-30px) rotate(-18deg)}
+  100%{transform:translateX(-50%) translateY(0) rotate(0deg)}
+}
+.popupThing{
+  position:absolute;
+  z-index:40;
+  font-size:46px;
+  font-weight:1000;
+  pointer-events:none;
+  animation: pipePop .95s forwards;
+  text-shadow:3px 3px 0 white,5px 5px 0 var(--line);
+}
+@keyframes pipePop{
+  0%{transform:translateY(30px) scale(.2);opacity:0}
+  25%{transform:translateY(-22px) scale(1.2);opacity:1}
+  65%{transform:translateY(-36px) scale(1)}
+  100%{transform:translateY(-60px) scale(.8);opacity:0}
+}
+.countdown{
+  display:none;
+  position:absolute;
+  inset:0;
+  z-index:80;
+  justify-content:center;
+  align-items:center;
+  font-size:110px;
+  font-weight:1000;
+  color:#f04f46;
+  text-shadow:5px 5px 0 white,9px 9px 0 var(--line);
+  pointer-events:none;
+}
+.stage.panic{
+  animation: panicShake .16s infinite;
+  border-color:#f04f46;
+}
+@keyframes panicShake{
+  0%{transform:translateX(0)}
+  25%{transform:translateX(-3px)}
+  50%{transform:translateX(3px)}
+  75%{transform:translateX(-2px)}
+  100%{transform:translateX(0)}
+}
+.badge.danger{
+  background:#f04f46!important;
+  color:white!important;
+  animation: blink .35s infinite alternate;
+}
+.badge.warning{
+  background:#ff9a3c!important;
+}
+@keyframes blink{
+  from{filter:brightness(1)}
+  to{filter:brightness(1.45)}
+}
+.comboPop{
+  position:absolute;
+  left:50%;
+  top:38%;
+  transform:translateX(-50%);
+  z-index:60;
+  background:#fff6d6;
+  border:6px solid var(--line);
+  padding:12px 18px;
+  font-size:34px;
+  font-weight:1000;
+  color:#e24a3b;
+  box-shadow:6px 6px 0 rgba(0,0,0,.2);
+  animation: comboPop .7s forwards;
+}
+@keyframes comboPop{
+  0%{transform:translateX(-50%) scale(.3);opacity:0}
+  35%{transform:translateX(-50%) scale(1.15);opacity:1}
+  100%{transform:translateX(-50%) scale(.9);opacity:0}
+}
+
+
+.pipeWord{
+  animation: wordFade 7s linear forwards;
+}
+@keyframes wordFade{
+  0%{opacity:1;transform:translateX(-50%) scale(1)}
+  42%{opacity:1;transform:translateX(-50%) scale(1)}
+  70%{opacity:.45;transform:translateX(-50%) scale(.96)}
+  88%{opacity:.18;transform:translateX(-50%) scale(.92) rotate(-1deg)}
+  100%{opacity:.08;transform:translateX(-50%) scale(.9) rotate(1deg)}
+}
+.pipeWord.fastFade{
+  animation: wordFadeFast 5s linear forwards;
+}
+@keyframes wordFadeFast{
+  0%{opacity:1;transform:translateX(-50%) scale(1)}
+  25%{opacity:1;transform:translateX(-50%) scale(1)}
+  60%{opacity:.42;transform:translateX(-50%) scale(.95)}
+  82%{opacity:.16;transform:translateX(-50%) scale(.9) rotate(-2deg)}
+  100%{opacity:.05;transform:translateX(-50%) scale(.86) rotate(2deg)}
+}
+.pipeWord.superFade{
+  animation: wordFadeSuper 3.8s linear forwards;
+}
+@keyframes wordFadeSuper{
+  0%{opacity:1;transform:translateX(-50%) scale(1)}
+  20%{opacity:1;transform:translateX(-50%) scale(1)}
+  50%{opacity:.38;transform:translateX(-50%) scale(.94)}
+  72%{opacity:.14;transform:translateX(-50%) scale(.88) rotate(-2deg)}
+  100%{opacity:.04;transform:translateX(-50%) scale(.82) rotate(2deg)}
+}
+.memoryCue{
+  position:absolute;
+  left:50%;
+  top:18px;
+  transform:translateX(-50%);
+  z-index:70;
+  background:#fff6d6;
+  border:5px solid var(--line);
+  padding:8px 14px;
+  font-weight:1000;
+  font-size:19px;
+  box-shadow:5px 5px 0 rgba(0,0,0,.18);
+  display:none;
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+<section class="header"><h1>Past Irregular Quest</h1><div class="subtitle">World 3: Participle Pipes — read fast and jump into the correct pipe!</div></section>
+<main class="layout">
+<section class="panel">
+<div class="topbar"><div class="badges"><div class="badge">❤️ <span id="lives">3</span></div><div class="badge">⭐ <span id="score">0</span></div><div class="badge" id="timeBadge">⏱️ <span id="time">70</span>s</div><div class="badge">🚰 <span id="cleared">0</span>/18</div></div><div class="badge">Round <span id="round">1</span></div></div>
+<div class="gamewrap">
+<div class="prompt"><div class="small">Find the PAST PARTICIPLE of:</div><div class="verb" id="pastVerb">went</div></div>
+<div class="stage" id="stage">
+<div class="cloud c1"></div><div class="cloud c2"></div><div class="hill h1"></div><div class="hill h2"></div>
+<div class="character" id="char"><div class="ear eleft"></div><div class="ear eright"></div><div class="body"></div><div class="eye left"></div><div class="eye right"></div><div class="mouth"></div></div>
+<div class="memoryCue" id="memoryCue">Read fast! The words are fading!</div><div class="pipeRow" id="pipes"></div><div class="countdown" id="countdown"></div>
+</div>
+<div class="controls"><div id="feedback" class="warn">Press Start. Click the pipe with the correct participle.</div><div><button class="green" onclick="startGame()">Start / Restart</button><button class="orange" onclick="pauseGame()">Pause</button></div></div>
+</div>
+</section>
+<aside class="side">
+<div class="pipe-card"><div class="pipeIcon"></div><div class="speech" id="speech">Choose the pipe! Past tense goes in, participle comes out!</div></div>
+<h2>How to Play</h2>
+<div class="legend"><div>🚰 Click the pipe with the correct past participle.</div><div>👀 Read quickly — pipe words slowly disappear!</div><div>✨ Correct pipe gives points and opens.</div><div>💨 Wrong pipe costs one heart.</div><div>⚡ Rounds get faster and trickier.</div></div>
+<p style="font-weight:900;line-height:1.4">Goal: clear 18 pipes before time runs out. This world practices past tense → past participle.</p>
+</aside>
+</main>
+</div>
+<div class="end" id="end"><div class="endbox"><h2 id="endTitle">Pipe Champion!</h2><p id="endText">Great work!</p><div class="progress"><div class="progressfill" id="progressfill"></div></div><button class="green" onclick="closeEnd();startGame()">Play Again</button><button class="pink" onclick="closeEnd()">Back</button></div></div>
+<script>
+const sets=[
+[["went","gone","go"],["ate","eaten","eat"],["saw","seen","see"],["ran","run","run"],["came","come","come"],["did","done","do"],["made","made","make"],["took","taken","take"],["gave","given","give"],["had","had","have"]],
+[["brought","brought","bring"],["bought","bought","buy"],["caught","caught","catch"],["taught","taught","teach"],["thought","thought","think"],["found","found","find"],["told","told","tell"],["sold","sold","sell"],["sent","sent","send"],["kept","kept","keep"]],
+[["chose","chosen","choose"],["drove","driven","drive"],["forgot","forgotten","forget"],["spoke","spoken","speak"],["rode","ridden","ride"],["wrote","written","write"],["threw","thrown","throw"],["knew","known","know"],["swam","swum","swim"],["drank","drunk","drink"]]
+];
+const fake={
+go:["goes","goed","going"],eat:["eats","eated","eating"],see:["sees","seed","seeing"],run:["runs","runned","running"],come:["comes","comed","coming"],do:["does","doed","doing"],make:["makes","maked","making"],take:["takes","taked","taking"],give:["gives","gived","giving"],have:["has","haved","having"],
+bring:["brings","bringed","brung"],buy:["buys","buyed","buying"],catch:["catches","catched","catching"],teach:["teaches","teached","teaching"],think:["thinks","thinked","thinking"],find:["finds","finded","finding"],tell:["tells","telled","telling"],sell:["sells","selled","selling"],send:["sends","sended","sending"],keep:["keeps","keeped","keeping"],
+choose:["chooses","choosed","choosing"],drive:["drives","drived","driving"],forget:["forgets","forgetted","forgetting"],speak:["speaks","speaked","speaking"],ride:["rides","rided","riding"],write:["writes","writed","writing"],throw:["throws","throwed","throwing"],know:["knows","knowed","knowing"],swim:["swims","swimmed","swimming"],drink:["drinks","drinked","drinking"]
+};
+let score,lives,time,cleared,round,paused,timer,current,locked=false,started=false,combo=0,lastBeep=99;
+const pipeBox=document.getElementById("pipes"),stage=document.getElementById("stage"),char=document.getElementById("char");
+function pick(a){return a[Math.floor(Math.random()*a.length)]}
+function shuffle(a){return a.sort(()=>Math.random()-.5)}
+function startGame(){clearInterval(timer);score=0;lives=3;time=70;cleared=0;round=1;combo=0;lastBeep=99;paused=false;started=true;locked=false;stage.classList.remove("panic");document.getElementById("timeBadge").classList.remove("warning","danger");newQuestion();ui();timer=setInterval(()=>{if(!paused){time--;panicTick();if(time<=0)end(false);ui()}},1000);fb("Pick the pipe with the correct participle!","warn");say("Jump into the right pipe!")}
+function pauseGame(){if(!started)return;paused=!paused;fb(paused?"Paused.":"Go! Choose a pipe!","warn")}
+function ui(){document.getElementById("score").textContent=score;document.getElementById("lives").textContent=lives;document.getElementById("time").textContent=time;document.getElementById("cleared").textContent=cleared;document.getElementById("round").textContent=round}
+function newQuestion(){
+ locked=false;char.classList.remove("dive","bump");char.style.opacity=1;char.style.left="50%";char.style.bottom="142px";
+ current=pick(sets[round-1]);document.getElementById("pastVerb").textContent=current[0];
+ const base=current[2], correct=current[1];
+ let opts=[{word:correct,correct:true}];
+ shuffle([...(fake[base]||[base+"ed",base+"s",base+"ing"])]).slice(0,3).forEach(w=>opts.push({word:w,correct:false}));
+ opts=shuffle(opts);pipeBox.innerHTML="";
+ const cue=document.getElementById("memoryCue");
+ cue.style.display="block";
+ cue.textContent=round===1?"Read the pipes carefully!":round===2?"Read fast! The words are fading!":"Super speed! Remember the words!";
+ setTimeout(()=>{cue.style.display="none"},1300);
+ opts.forEach((o,i)=>{const wrap=document.createElement("div");wrap.className="pipeWrap";let fadeClass=round===1?"pipeWord":round===2?"pipeWord fastFade":"pipeWord superFade";
+wrap.innerHTML='<div class="'+fadeClass+'">'+o.word+'</div><div class="pipe p'+(i+1)+'"></div>';
+wrap.onclick=()=>choosePipe(i,o,wrap);
+pipeBox.appendChild(wrap)})
+}
+function choosePipe(i,o,wrap){
+ if(paused||locked||!started)return;
+ locked=true;
+ const center=wrap.offsetLeft+wrap.offsetWidth/2-29;
+ char.style.left=center+"px";
+ char.classList.remove("dive","bump");
+ void char.offsetWidth;
+
+ if(o.correct){
+   char.classList.add("dive");
+   wrap.classList.add("flash");
+   setTimeout(()=>{pipePopup(wrap);sparkleBurst(wrap);},420);
+   setTimeout(()=>{
+     score+=10;
+     combo++;
+     if(combo>=3){score+=5;showCombo(combo);}
+     cleared++;
+     fb("Correct! "+current[0]+" → "+current[1],"good");
+     say(pick(["Wahoo! Something popped out!","Pipe power!","Participle perfect!"]));
+     beep("good");
+     if(cleared===6)round=2;
+     if(cleared===12)round=3;
+     if(cleared>=18){end(true);return}
+     ui();
+     char.classList.remove("dive");
+     char.style.opacity=1;
+     char.style.left="50%";
+     char.style.bottom="142px";
+     wrap.classList.remove("flash");
+     newQuestion();
+   },950);
+ }else{
+   combo=0;
+   char.classList.add("bump");
+   setTimeout(()=>{effect(wrap,"POOF!");},230);
+   setTimeout(()=>{
+     lives--;
+     fb("Oops! "+o.word+" is not the participle of "+current[2]+".","bad");
+     say("Wrong pipe! Try again!");
+     beep("bad");
+     ui();
+     char.classList.remove("bump");
+     char.style.left="50%";
+     char.style.bottom="142px";
+     if(lives<=0){end(false);return}
+     locked=false;
+   },620);
+ }
+}
+
+function pipePopup(wrap){
+ const things=["🌟","🦊","🍄","🎉","⭐","🐸","🌈","✨"];
+ const p=document.createElement("div");
+ p.className="popupThing";
+ p.textContent=pick(things);
+ p.style.left=(wrap.offsetLeft+wrap.offsetWidth/2-26)+"px";
+ p.style.top=(wrap.offsetTop-84)+"px";
+ stage.appendChild(p);
+ setTimeout(()=>p.remove(),1000);
+}
+function sparkleBurst(wrap){
+ for(let i=0;i<8;i++){
+   setTimeout(()=>effect(wrap, pick(["✨","⭐","🌟"])), i*55);
+ }
+}
+function showCombo(n){
+ const c=document.createElement("div");
+ c.className="comboPop";
+ c.textContent=n>=5?"🔥 PIPE MASTER!":"🔥 "+n+" COMBO!";
+ stage.appendChild(c);
+ setTimeout(()=>c.remove(),750);
+}
+function panicTick(){
+ const tb=document.getElementById("timeBadge");
+ const cd=document.getElementById("countdown");
+ if(time<=20 && time>10){tb.classList.add("warning");}
+ if(time<=10){tb.classList.remove("warning");tb.classList.add("danger");stage.classList.add("panic");}
+ if(time<=5 && time>0){
+   cd.style.display="flex";
+   cd.textContent=time;
+   beep("tick");
+   setTimeout(()=>{cd.style.display="none"},420);
+ }else if(time<=10 && time!==lastBeep){
+   beep("tick");
+ }
+ lastBeep=time;
+}
+
+function effect(wrap,txt){const e=document.createElement("div");e.className=txt==="✨"?"sparkle":"smoke";e.textContent=txt;e.style.left=(wrap.offsetLeft+wrap.offsetWidth/2-28)+"px";e.style.top=(wrap.offsetTop-82)+"px";stage.appendChild(e);setTimeout(()=>e.remove(),650)}
+function fb(m,cl){let e=document.getElementById("feedback");e.textContent=m;e.className=cl}
+function say(m){document.getElementById("speech").textContent=m}
+function beep(type){try{const a=new(window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=type==="bad"?170:type==="tick"?520:860;g.gain.value=type==="tick"?.055:.08;o.type=type==="tick"?"sawtooth":"square";o.start();o.stop(a.currentTime+(type==="tick"?.08:.14))}catch(e){}}
+function end(win){clearInterval(timer);started=false;document.getElementById("end").style.display="flex";document.getElementById("endTitle").textContent=win?"Pipe Champion!":"Try Again!";document.getElementById("endText").innerHTML=`Score: <b>${score}</b><br>Pipes cleared: <b>${cleared}</b>/18`;document.getElementById("progressfill").style.width=Math.min(100,cleared/18*100)+"%"}
+function closeEnd(){document.getElementById("end").style.display="none"}
+</script>
+</body>
+</html>
