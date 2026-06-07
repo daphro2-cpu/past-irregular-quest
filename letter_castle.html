@@ -128,6 +128,22 @@ button:hover{filter:brightness(1.08)}button.orange{background:var(--orange)}butt
 .princeIcon{width:62px;height:72px;position:relative}.princeIcon .head{position:absolute;left:14px;top:10px;width:34px;height:32px;background:#ffcf9b;border:4px solid var(--line);border-radius:10px}.princeIcon .body{position:absolute;left:8px;top:42px;width:48px;height:28px;background:#7c67ff;border:4px solid var(--line);border-radius:10px}.princeIcon .crown{position:absolute;left:12px;top:0;width:38px;height:24px;background:#ffe05d;border:4px solid var(--line);clip-path:polygon(0 100%,0 35%,28% 62%,50% 0,72% 62%,100% 35%,100% 100%)}
 .speech{font-weight:900;line-height:1.3}.legend{display:grid;gap:8px;margin-top:10px}.legend div{border:4px solid var(--line);background:#fff6d6;padding:8px;font-weight:900}
 .end{display:none;position:fixed;inset:0;background:rgba(20,30,55,.72);z-index:90;align-items:center;justify-content:center;padding:20px}.endbox{background:#fff6d6;border:7px solid var(--line);box-shadow:10px 10px 0 rgba(0,0,0,.28);padding:22px;max-width:560px;text-align:center}.endbox h2{font-size:2.2rem;margin:0 0 8px;text-transform:uppercase}.progress{height:26px;border:5px solid var(--line);background:#fff;margin:12px 0;overflow:hidden}.progressfill{height:100%;background:linear-gradient(90deg,#44b55a,#ffe06b,#ff7ba8);width:20%}
+
+.back-home-button{
+  display:inline-block;
+  margin-bottom:8px;
+  padding:8px 14px;
+  background:#3e7abe;
+  color:white;
+  text-decoration:none;
+  font-size:18px;
+  font-weight:1000;
+  border:4px solid var(--line,#17213a);
+  border-radius:6px;
+  box-shadow:4px 4px 0 rgba(0,0,0,.18);
+}
+.back-home-button:hover{background:#2b5f97}
+
 </style>
 </head>
 <body>
@@ -140,6 +156,7 @@ button:hover{filter:brightness(1.08)}button.orange{background:var(--orange)}butt
 <div class="roomTitle"><div class="room" id="roomTitle">Front Gate</div><div class="dialogue" id="roomLine">The guard blocks the entrance.</div></div>
 <div class="prompt"><div class="small" id="taskLabel">Build the SIMPLE PAST of:</div><div class="verb" id="clueVerb">bring</div></div>
 
+<a href="index.html" class="back-home-button">🏠 Main Menu</a>
 <div class="crossCastle" id="crossCastle">
   <div class="castleShell" id="castleShell">
     <div class="roofTop"></div>

@@ -63,15 +63,17 @@ button:hover{filter:brightness(1.08)}button.orange{background:var(--orange)}butt
 .progress{height:26px;border:5px solid var(--line);background:#fff;margin:12px 0;overflow:hidden}.progressfill{height:100%;background:linear-gradient(90deg,#44b55a,#ffe06b,#ff7ba8);width:20%}
 
 .back-home-button{
- display:inline-block;
- margin-bottom:8px;
- padding:8px 14px;
- background:#3e7abe;
- color:white;
- text-decoration:none;
- font-size:18px;
- border-radius:6px;
- box-shadow:0 3px 6px rgba(0,0,0,.15);
+  display:inline-block;
+  margin-bottom:8px;
+  padding:8px 14px;
+  background:#3e7abe;
+  color:white;
+  text-decoration:none;
+  font-size:18px;
+  font-weight:1000;
+  border:4px solid var(--line,#17213a);
+  border-radius:6px;
+  box-shadow:4px 4px 0 rgba(0,0,0,.18);
 }
 .back-home-button:hover{background:#2b5f97}
 
@@ -85,7 +87,8 @@ button:hover{filter:brightness(1.08)}button.orange{background:var(--orange)}butt
 <div class="topbar"><div class="badges"><div class="badge">❤️ <span id="lives">3</span></div><div class="badge">⭐ <span id="score">0</span></div><div class="badge">⏱️ <span id="time">75</span>s</div><div class="badge">🪰 <span id="swatted">0</span>/20</div></div><div class="badge">Round <span id="round">1</span></div></div>
 <div class="gamewrap">
 <div class="prompt"><div class="small">Find the PAST PARTICIPLE of:</div><div class="verb" id="pastVerb">went</div></div>
-<a href="index.html" class="back-home-button">🏠 Main Menu</a><div id="field"><div class="cloud c1"></div><div class="cloud c2"></div></div>
+<a href="index.html" class="back-home-button">🏠 Main Menu</a>
+<div id="field"><div class="cloud c1"></div><div class="cloud c2"></div></div>
 <div class="controls"><div id="feedback" class="warn">Press Start. Click the moving bug with the correct participle.</div><div><button class="green" onclick="startGame()">Start / Restart</button><button class="orange" onclick="pauseGame()">Pause</button></div></div>
 </div>
 </section>

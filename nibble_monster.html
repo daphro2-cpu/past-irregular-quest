@@ -18,20 +18,20 @@ button{font-family:inherit;font-weight:1000;border:5px solid var(--line);backgro
 .legend{display:grid;gap:8px;margin-top:10px}.legend div{border:4px solid var(--line);background:#fff6d6;padding:8px;font-weight:900}.keys{display:grid;grid-template-columns:repeat(3,45px);gap:5px;justify-content:center;margin-top:12px}.key{height:38px;border:4px solid var(--line);background:#fff;text-align:center;font-weight:1000;line-height:30px;box-shadow:3px 3px 0 rgba(0,0,0,.14)}.blank{visibility:hidden}
 .end{display:none;position:fixed;inset:0;background:rgba(20,30,55,.72);z-index:10;align-items:center;justify-content:center;padding:20px}.endbox{background:#fff6d6;border:7px solid var(--line);box-shadow:10px 10px 0 rgba(0,0,0,.28);padding:22px;max-width:560px;text-align:center}.endbox h2{font-size:2.2rem;margin:0 0 8px;text-transform:uppercase}.progress{height:26px;border:5px solid var(--line);background:#fff;margin:12px 0;overflow:hidden}.progressfill{height:100%;background:linear-gradient(90deg,#44b55a,#ffe06b,#ff7ba8);width:20%}
 
-.back-home-button {
-  display: inline-block;
-  margin-bottom: 8px;
-  padding: 8px 14px;
-  background: #3e7abe;
-  color: white;
-  font-size: 18px;
-  text-decoration: none;
-  border-radius: 6px;
-  box-shadow: 0 3px 6px rgba(0,0,0,.15);
+.back-home-button{
+  display:inline-block;
+  margin-bottom:8px;
+  padding:8px 14px;
+  background:#3e7abe;
+  color:white;
+  text-decoration:none;
+  font-size:18px;
+  font-weight:1000;
+  border:4px solid var(--line,#17213a);
+  border-radius:6px;
+  box-shadow:4px 4px 0 rgba(0,0,0,.18);
 }
-.back-home-button:hover {
-  background: #2b5f97;
-}
+.back-home-button:hover{background:#2b5f97}
 
 </style>
 </head>
@@ -39,7 +39,7 @@ button{font-family:inherit;font-weight:1000;border:5px solid var(--line);backgro
 <div class="page"><section class="header"><h1>Past Irregular Quest</h1><div class="subtitle">World 1: Nibble Monster — Feed Nibbles the Simple Past!</div></section>
 <main class="layout"><section class="panel"><div class="topbar"><div class="badges"><div class="badge">❤️ <span id="lives">3</span></div><div class="badge">⭐ <span id="score">0</span></div><div class="badge">⏱️ <span id="time">90</span>s</div><div class="badge">🍓 <span id="eaten">0</span>/15</div></div><div class="badge">Round <span id="round">1</span></div></div><div class="gamewrap"><div class="prompt"><div class="small">Find the SIMPLE PAST of:</div><div class="verb" id="baseVerb">eat</div></div><a href="index.html" class="back-home-button">🏠 Main Menu</a>
 <canvas id="board" width="760" height="548"></canvas><div class="controls"><div id="feedback" class="warn">Press Start. Use arrow keys or W A S D.</div><div><button class="green" onclick="startGame()">Start / Restart</button><button class="orange" onclick="pauseGame()">Pause</button></div></div></div></section>
-<aside class="side"><div class="nibbles-card"><div class="face"><div class="mouth"></div></div><div class="speech" id="speech">I'm hungry! Feed me the past tense!</div></div><h2 id="evoTitle">Baby Nibbles</h2><div class="legend"><div id="evoText">Eat strawberries to grow into Super Nibbles!</div></div><h2>How to Play</h2><div class="legend"><div>Eat the correct past tense word.</div><div>🍄 Avoid fake verbs and wrong forms.</div><div>⭐ Stars give bonus points.</div><div>🕒 Clocks give extra time.</div></div><div class="keys"><div class="key blank"></div><div class="key">↑</div><div class="key blank"></div><div class="key">←</div><div class="key">↓</div><div class="key">→</div></div><p style="font-weight:900;line-height:1.4">Goal: eat 15 correct strawberries before time runs out. Nibbles grows and evolves as you play!</p></aside></main></div>
+<aside class="side"><div class="nibbles-card"><div class="face"><div class="mouth"></div></div><div class="speech" id="speech">I'm hungry! Feed me the past tense!</div></div><h2 id="evoTitle">Baby Nibbles</h2><div class="legend"><div id="evoText">Eat strawberries to grow into Super Nibbles!</div></div><h2>How to Play</h2><div class="legend"><div>🍓 Eat the correct past tense word.</div><div>🍄 Avoid fake verbs and wrong forms.</div><div>⭐ Stars give bonus points.</div><div>🕒 Clocks give extra time.</div></div><div class="keys"><div class="key blank"></div><div class="key">↑</div><div class="key blank"></div><div class="key">←</div><div class="key">↓</div><div class="key">→</div></div><p style="font-weight:900;line-height:1.4">Goal: eat 15 correct strawberries before time runs out. Nibbles grows and evolves as you play!</p></aside></main></div>
 <div class="end" id="end"><div class="endbox"><h2 id="endTitle">Nibbles Grew!</h2><p id="endText">Great work!</p><div class="progress"><div class="progressfill" id="progressfill"></div></div><button class="green" onclick="closeEnd();startGame()">Play Again</button><button class="pink" onclick="closeEnd()">Back</button></div></div>
 <script>
 const sets=[

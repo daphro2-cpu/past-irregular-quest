@@ -218,6 +218,22 @@ button:hover{filter:brightness(1.08)}button.orange{background:var(--orange)}butt
   display:none;
 }
 
+
+.back-home-button{
+  display:inline-block;
+  margin-bottom:8px;
+  padding:8px 14px;
+  background:#3e7abe;
+  color:white;
+  text-decoration:none;
+  font-size:18px;
+  font-weight:1000;
+  border:4px solid var(--line,#17213a);
+  border-radius:6px;
+  box-shadow:4px 4px 0 rgba(0,0,0,.18);
+}
+.back-home-button:hover{background:#2b5f97}
+
 </style>
 </head>
 <body>
@@ -228,6 +244,7 @@ button:hover{filter:brightness(1.08)}button.orange{background:var(--orange)}butt
 <div class="topbar"><div class="badges"><div class="badge">❤️ <span id="lives">3</span></div><div class="badge">⭐ <span id="score">0</span></div><div class="badge" id="timeBadge">⏱️ <span id="time">70</span>s</div><div class="badge">🚰 <span id="cleared">0</span>/18</div></div><div class="badge">Round <span id="round">1</span></div></div>
 <div class="gamewrap">
 <div class="prompt"><div class="small">Find the PAST PARTICIPLE of:</div><div class="verb" id="pastVerb">went</div></div>
+<a href="index.html" class="back-home-button">🏠 Main Menu</a>
 <div class="stage" id="stage">
 <div class="cloud c1"></div><div class="cloud c2"></div><div class="hill h1"></div><div class="hill h2"></div>
 <div class="character" id="char"><div class="ear eleft"></div><div class="ear eright"></div><div class="body"></div><div class="eye left"></div><div class="eye right"></div><div class="mouth"></div></div>
