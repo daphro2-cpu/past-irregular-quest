@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Past Irregular Quest - Fly Swatter Fields</title>
+<style>
+:root{
+  --ink:#24304a;--line:#17213a;--sky:#93ddff;--grass:#74cf68;--hill:#4dad58;
+  --cream:#fff6d6;--yellow:#ffe05d;--orange:#ff9a3c;--pink:#ff7ba8;--red:#f04f46;
+  --purple:#9b68d8;--blue:#4ea6ff;--green:#44b55a;--white:#fffdf4;--shadow:rgba(0,0,0,.25)
+}
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;font-family:"Trebuchet MS","Century Gothic",Arial,sans-serif;color:var(--ink);
+  background:
+    radial-gradient(circle at 11% 13%,#fff 0 18px,transparent 19px),
+    radial-gradient(circle at 16% 14%,#fff 0 15px,transparent 16px),
+    radial-gradient(circle at 82% 10%,#fff 0 22px,transparent 23px),
+    linear-gradient(var(--sky) 0 60%,var(--grass) 60% 72%,var(--hill) 72%);
+  overflow-x:hidden;
+}
+.page{max-width:1120px;margin:0 auto;padding:22px 16px 34px}
+.header{background:var(--cream);border:6px solid var(--line);box-shadow:8px 8px 0 var(--shadow);padding:18px 20px;position:relative;overflow:hidden}
+.header:after{content:"";position:absolute;right:26px;top:18px;width:72px;height:72px;background:var(--yellow);border:6px solid var(--line);border-radius:50%;box-shadow:6px 6px 0 rgba(0,0,0,.15)}
+h1{margin:0;font-size:clamp(2rem,5vw,4rem);text-transform:uppercase}.subtitle{font-weight:900;font-size:1.08rem;margin-top:6px;color:rgba(36,48,74,.78)}
+.layout{display:grid;grid-template-columns:1fr 310px;gap:18px;margin-top:18px}@media(max-width:900px){.layout{grid-template-columns:1fr}}
+.panel,.side{background:var(--white);border:6px solid var(--line);box-shadow:8px 8px 0 var(--shadow)}
+.topbar{padding:12px 14px;background:#ffcf58;border-bottom:6px solid var(--line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-weight:900}
+.badges{display:flex;gap:8px;flex-wrap:wrap}.badge{background:#fff;border:4px solid var(--line);padding:6px 9px;box-shadow:3px 3px 0 rgba(0,0,0,.15)}
+.gamewrap{padding:16px}.prompt{background:#fff3c7;border:5px solid var(--line);padding:12px;margin-bottom:12px;text-align:center;box-shadow:5px 5px 0 rgba(0,0,0,.14)}
+.prompt .small{font-size:.95rem;font-weight:900;color:rgba(36,48,74,.72)}.prompt .verb{font-size:clamp(2rem,5vw,3.2rem);font-weight:1000;text-transform:uppercase;color:#e24a3b}
+#field{position:relative;width:100%;max-width:760px;aspect-ratio:1/.72;margin:0 auto;border:6px solid var(--line);background:linear-gradient(#9eeaff 0 46%,#87dd66 46% 100%);box-shadow:6px 6px 0 rgba(0,0,0,.2);overflow:hidden;cursor:crosshair}
+.cloud{position:absolute;background:white;border:4px solid var(--line);border-radius:999px;opacity:.95}.cloud:before,.cloud:after{content:"";position:absolute;background:white;border:4px solid var(--line);border-radius:50%}
+.c1{left:7%;top:9%;width:70px;height:28px}.c1:before{left:12px;top:-18px;width:32px;height:32px}.c1:after{right:10px;top:-12px;width:26px;height:26px}
+.c2{right:10%;top:14%;width:90px;height:32px}.c2:before{left:15px;top:-20px;width:36px;height:36px}.c2:after{right:15px;top:-14px;width:28px;height:28px}
+.flower{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--pink);border:2px solid var(--line)}
+.bug{
+  position:absolute;width:118px;height:62px;display:flex;align-items:center;justify-content:center;
+  font-weight:1000;color:var(--line);text-align:center;user-select:none;transition:transform .08s;
+}
+.bug:hover{transform:scale(1.08)}
+.bug-body{position:absolute;inset:12px 16px 10px;border:5px solid var(--line);border-radius:24px;background:#6cc6ff;box-shadow:4px 4px 0 rgba(0,0,0,.17)}
+.bug.bee .bug-body{background:repeating-linear-gradient(90deg,#ffe05d 0 16px,#ff9a3c 16px 30px)}
+.bug.lady .bug-body{background:#f04f46}
+.bug.butter .bug-body{background:linear-gradient(90deg,#ff7ba8,#ffe05d,#49a6ff)}
+.wing{position:absolute;width:33px;height:28px;background:rgba(255,255,255,.8);border:4px solid var(--line);border-radius:50%;top:0}
+.w1{left:12px}.w2{right:12px}
+.eye{position:absolute;width:7px;height:7px;background:var(--line);top:26px;z-index:2}.e1{left:34px}.e2{right:34px}
+.word{position:relative;z-index:4;background:rgba(255,255,255,.78);border:3px solid var(--line);padding:3px 8px;font-size:18px;box-shadow:2px 2px 0 rgba(0,0,0,.12)}
+.splat{position:absolute;z-index:20;pointer-events:none;font-size:42px;font-weight:1000;color:#f04f46;text-shadow:3px 3px 0 #fff,5px 5px 0 var(--line);animation:pop .34s forwards}
+@keyframes pop{0%{transform:scale(.3) rotate(-15deg);opacity:0}50%{transform:scale(1.2) rotate(8deg);opacity:1}100%{transform:scale(.8);opacity:0}}
+.controls{margin-top:12px;display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+button{font-family:inherit;font-weight:1000;border:5px solid var(--line);background:#55a6ff;color:#fff;padding:10px 14px;box-shadow:4px 4px 0 rgba(0,0,0,.2);cursor:pointer;font-size:1rem}
+button:hover{filter:brightness(1.08)}button.orange{background:var(--orange)}button.green{background:var(--green)}button.pink{background:#ff7ba8}
+#feedback{font-weight:1000;min-height:28px;font-size:1.08rem}.good{color:#238c3a}.bad{color:#d33a30}.warn{color:#b36800}
+.side{padding:16px}.side h2{margin:0 0 10px;text-transform:uppercase}
+.swatter-card{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:center;background:#e9f8ff;border:5px solid var(--line);padding:10px;margin-bottom:14px}
+.swatter{width:62px;height:62px;position:relative}.swatter:before{content:"";position:absolute;left:6px;top:4px;width:42px;height:42px;background:#ff7ba8;border:5px solid var(--line);border-radius:14px;transform:rotate(-16deg)}.swatter:after{content:"";position:absolute;right:5px;bottom:3px;width:12px;height:42px;background:#8b5a2b;border:4px solid var(--line);transform:rotate(-35deg)}
+.speech{font-weight:900;line-height:1.3}.legend{display:grid;gap:8px;margin-top:10px}.legend div{border:4px solid var(--line);background:#fff6d6;padding:8px;font-weight:900}
+.end{display:none;position:fixed;inset:0;background:rgba(20,30,55,.72);z-index:50;align-items:center;justify-content:center;padding:20px}
+.endbox{background:#fff6d6;border:7px solid var(--line);box-shadow:10px 10px 0 rgba(0,0,0,.28);padding:22px;max-width:560px;text-align:center}.endbox h2{font-size:2.2rem;margin:0 0 8px;text-transform:uppercase}
+.progress{height:26px;border:5px solid var(--line);background:#fff;margin:12px 0;overflow:hidden}.progressfill{height:100%;background:linear-gradient(90deg,#44b55a,#ffe06b,#ff7ba8);width:20%}
+
+.back-home-button{
+ display:inline-block;
+ margin-bottom:8px;
+ padding:8px 14px;
+ background:#3e7abe;
+ color:white;
+ text-decoration:none;
+ font-size:18px;
+ border-radius:6px;
+ box-shadow:0 3px 6px rgba(0,0,0,.15);
+}
+.back-home-button:hover{background:#2b5f97}
+
+</style>
+</head>
+<body>
+<div class="page">
+<section class="header"><h1>Past Irregular Quest</h1><div class="subtitle">World 2: Fly Swatter Fields — swat the past participle!</div></section>
+<main class="layout">
+<section class="panel">
+<div class="topbar"><div class="badges"><div class="badge">❤️ <span id="lives">3</span></div><div class="badge">⭐ <span id="score">0</span></div><div class="badge">⏱️ <span id="time">75</span>s</div><div class="badge">🪰 <span id="swatted">0</span>/20</div></div><div class="badge">Round <span id="round">1</span></div></div>
+<div class="gamewrap">
+<div class="prompt"><div class="small">Find the PAST PARTICIPLE of:</div><div class="verb" id="pastVerb">went</div></div>
+<a href="index.html" class="back-home-button">🏠 Main Menu</a><div id="field"><div class="cloud c1"></div><div class="cloud c2"></div></div>
+<div class="controls"><div id="feedback" class="warn">Press Start. Click the moving bug with the correct participle.</div><div><button class="green" onclick="startGame()">Start / Restart</button><button class="orange" onclick="pauseGame()">Pause</button></div></div>
+</div>
+</section>
+<aside class="side">
+<div class="swatter-card"><div class="swatter"></div><div class="speech" id="speech">Ready your swatter! Find the participle!</div></div>
+<h2>How to Play</h2>
+<div class="legend"><div>🪰 Swat the bug carrying the correct past participle.</div><div>🐝 Golden bugs give bonus points.</div><div>🦋 Time bugs give extra seconds.</div><div>🐞 Ladybugs give an extra heart.</div></div>
+<p style="font-weight:900;line-height:1.4">Goal: swat 20 correct bugs before time runs out. Wrong bug? Lose one heart!</p>
+</aside>
+</main>
+</div>
+<div class="end" id="end"><div class="endbox"><h2 id="endTitle">Fly Swatter Champion!</h2><p id="endText">Great work!</p><div class="progress"><div class="progressfill" id="progressfill"></div></div><button class="green" onclick="closeEnd();startGame()">Play Again</button><button class="pink" onclick="closeEnd()">Back</button></div></div>
+<script>
+const sets=[
+[["went","gone","go"],["ate","eaten","eat"],["saw","seen","see"],["ran","run","run"],["came","come","come"],["did","done","do"],["made","made","make"],["took","taken","take"],["gave","given","give"],["had","had","have"]],
+[["brought","brought","bring"],["bought","bought","buy"],["caught","caught","catch"],["taught","taught","teach"],["thought","thought","think"],["found","found","find"],["told","told","tell"],["sold","sold","sell"],["sent","sent","send"],["kept","kept","keep"]],
+[["chose","chosen","choose"],["drove","driven","drive"],["forgot","forgotten","forget"],["spoke","spoken","speak"],["rode","ridden","ride"],["wrote","written","write"],["threw","thrown","throw"],["knew","known","know"],["swam","swum","swim"],["drank","drunk","drink"]]
+];
+const fake={
+go:["goes","goed","going"],eat:["eats","eated","eating"],see:["sees","seed","seeing"],run:["runs","runned","running"],come:["comes","comed","coming"],do:["does","doed","doing"],make:["makes","maked","making"],take:["takes","taked","taking"],give:["gives","gived","giving"],have:["has","haved","having"],
+bring:["brings","bringed","brung"],buy:["buys","buyed","buying"],catch:["catches","catched","catching"],teach:["teaches","teached","teaching"],think:["thinks","thinked","thinking"],find:["finds","finded","finding"],tell:["tells","telled","telling"],sell:["sells","selled","selling"],send:["sends","sended","sending"],keep:["keeps","keeped","keeping"],
+choose:["chooses","choosed","choosing"],drive:["drives","drived","driving"],forget:["forgets","forgetted","forgetting"],speak:["speaks","speaked","speaking"],ride:["rides","rided","riding"],write:["writes","writed","writing"],throw:["throws","throwed","throwing"],know:["knows","knowed","knowing"],swim:["swims","swimmed","swimming"],drink:["drinks","drinked","drinking"]
+};
+let score,lives,time,swatted,round,paused,timer,loop,current,bugs,started=false;
+const field=document.getElementById("field");
+function pick(a){return a[Math.floor(Math.random()*a.length)]}
+function shuffle(a){return a.sort(()=>Math.random()-.5)}
+function startGame(){clearInterval(timer);clearInterval(loop);score=0;lives=3;time=75;swatted=0;round=1;paused=false;started=true;newQuestion();ui();timer=setInterval(()=>{if(!paused){time--;if(time<=0)end(false);ui()}},1000);loop=setInterval(moveBugs,35);fb("Swat the correct participle!","warn");say("Ready your swatter!")}
+function pauseGame(){if(!started)return;paused=!paused;fb(paused?"Paused.":"Go! Swat the correct bug!","warn")}
+function ui(){document.getElementById("score").textContent=score;document.getElementById("lives").textContent=lives;document.getElementById("time").textContent=time;document.getElementById("swatted").textContent=swatted;document.getElementById("round").textContent=round}
+function newQuestion(){clearBugs();current=pick(sets[round-1]);document.getElementById("pastVerb").textContent=current[0];spawnBugs()}
+function clearBugs(){[...field.querySelectorAll(".bug,.splat,.flower")].forEach(e=>e.remove())}
+function spawnBugs(){
+  bugs=[];
+  for(let i=0;i<24;i++){let fl=document.createElement("div");fl.className="flower";fl.style.left=(Math.random()*94+2)+"%";fl.style.top=(Math.random()*42+54)+"%";field.appendChild(fl)}
+  const count=round===1?4:round===2?6:8;
+  const base=current[2], correct=current[1];
+  let words=[{word:correct,type:"correct"}];
+  shuffle([...(fake[base]||[base+"ed",base+"s",base+"ing"])]).slice(0,count-1).forEach(w=>words.push({word:w,type:"wrong"}));
+  if(Math.random()<.35)words.push({word:"+30",type:"bonus"});
+  if(Math.random()<.25)words.push({word:"+10s",type:"time"});
+  if(Math.random()<.18)words.push({word:"+❤️",type:"heart"});
+  words.forEach(w=>makeBug(w));
+}
+function makeBug(data){
+  const b=document.createElement("div");b.className="bug";
+  if(data.type==="bonus")b.classList.add("bee"); if(data.type==="time")b.classList.add("butter"); if(data.type==="heart")b.classList.add("lady");
+  b.innerHTML='<div class="wing w1"></div><div class="wing w2"></div><div class="bug-body"></div><div class="eye e1"></div><div class="eye e2"></div><div class="word">'+data.word+'</div>';
+  field.appendChild(b);
+  const rect=field.getBoundingClientRect();
+  const bug={el:b,type:data.type,word:data.word,x:Math.random()*(field.clientWidth-130)+5,y:Math.random()*(field.clientHeight-100)+55,vx:(Math.random()>.5?1:-1)*(1.2+round*.35+Math.random()*1.2),vy:(Math.random()>.5?1:-1)*(1+round*.28+Math.random()*.9)};
+  b.style.left=bug.x+"px";b.style.top=bug.y+"px";
+  b.onclick=(e)=>hitBug(e,bug);
+  bugs.push(bug);
+}
+function moveBugs(){if(paused||!started)return;bugs.forEach(b=>{b.x+=b.vx;b.y+=b.vy;if(b.x<0||b.x>field.clientWidth-120)b.vx*=-1;if(b.y<42||b.y>field.clientHeight-70)b.vy*=-1;b.el.style.left=b.x+"px";b.el.style.top=b.y+"px"})}
+function hitBug(e,b){
+  if(paused||!started)return;
+  splat(e.offsetX+b.x,e.offsetY+b.y);
+  if(b.type==="correct"){
+    score+=10;swatted++;fb("SPLAT! "+current[0]+" → "+current[1],"good");say(pick(["Splat!","Great swat!","Participle power!"]));beep("good");
+    if(swatted===7)round=2;if(swatted===14)round=3;if(swatted>=20){end(true);return}
+    newQuestion();
+  }else if(b.type==="bonus"){score+=30;fb("Golden bug! +30 points!","good");beep("bonus");removeBug(b)}
+  else if(b.type==="time"){time+=10;fb("Time butterfly! +10 seconds!","good");beep("bonus");removeBug(b)}
+  else if(b.type==="heart"){lives=Math.min(5,lives+1);fb("Ladybug heart! +1 life!","good");beep("bonus");removeBug(b)}
+  else{lives--;fb("Oops! "+b.word+" is not the participle of "+current[2]+".","bad");say("Wrong bug! Try again!");beep("bad");removeBug(b);if(lives<=0){end(false);return}}
+  ui();
+}
+function removeBug(b){b.el.remove();bugs=bugs.filter(x=>x!==b)}
+function splat(x,y){const s=document.createElement("div");s.className="splat";s.textContent="SPLAT!";s.style.left=x-45+"px";s.style.top=y-25+"px";field.appendChild(s);setTimeout(()=>s.remove(),350)}
+function fb(m,cl){let e=document.getElementById("feedback");e.textContent=m;e.className=cl}
+function say(m){document.getElementById("speech").textContent=m}
+function beep(type){try{const a=new(window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=type==="bad"?170:type==="bonus"?980:740;g.gain.value=.08;o.type="square";o.start();o.stop(a.currentTime+.12)}catch(e){}}
+function end(win){clearInterval(timer);clearInterval(loop);started=false;document.getElementById("end").style.display="flex";document.getElementById("endTitle").textContent=win?"Fly Swatter Champion!":"Try Again!";document.getElementById("endText").innerHTML=`Score: <b>${score}</b><br>Correct bugs swatted: <b>${swatted}</b>/20`;document.getElementById("progressfill").style.width=Math.min(100,swatted/20*100)+"%"}
+function closeEnd(){document.getElementById("end").style.display="none"}
+</script>
+</body>
+</html>
